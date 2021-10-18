@@ -1,0 +1,207 @@
+<!-- navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light sticky-top  bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto pr-4">
+          
+        <!--<li class="nav-item btn btn-outline-primary">
+          <a class="nav-link" href="/company/dashboard">
+            <i class="fa fa-bar-chart"></i>
+            Timeline
+          </a>
+        </li>
+
+        <li class="nav-item btn btn-danger">
+            <a class="nav-link activeNavLink" href="/company/addPost">
+                <i class="fa fa-bullhorn"></i>
+                Add Post
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <a class="nav-link" href="/company/statistics">
+                <i class="fa fa-bullhorn"></i>
+                Statistics
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <a class="nav-link" href="/company/assessment">
+                <i class="fa fa-lightbulb-o"></i>
+                Assessment
+            </a>
+        </li>-->
+
+        <li class="nav-item dropdown btn btn-outline-primary">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-bell" aria-hidden="true"></i>
+              Notifications
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% user.notifications.forEach(function(ele) { %>
+            <p class="dropdown-item"><i class="fa fa-info" aria-hidden="true"></i> <%= ele %></p>
+            <% }); %>
+      </li>
+
+        <li class="nav-item dropdown btn btn-outline-primary">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user-circle-o"></i>
+                <%= user.name %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/doctor/myProfileDoc">Profile</a>
+              <a class="dropdown-item" href="/doctor/logoutDoc">Logout</a>
+              <a class="dropdown-item" href="/doctor/deleteDoc" >Delete Account</a>
+        </li>
+               
+      </ul>   
+    </div>
+</nav>
+<%- include ('../partials/messages') %>
+<h1 class="mt-4">Home Page Doctor</h1>
+<p class="lead mb-3">Welcome Doctor <%= user.name %></p>
+<p class="lead mb-3"> <%= user.email %></p>
+<h2>Appointments </h2>
+<!--names is now an array containing the name-properties of the objects.-->
+<% user.appointments.forEach(function(ele) { %>
+    <div class="container justify-content-center postbox">
+     <div class="container patientName"><%= ele.name %> </div>
+     <div class="container patage mb-2" id="age">
+      <button class="btn-info">Age </button>
+      <h5  class="ml-3"> <%= ele.age %></h5>
+      </div>
+      <div class="container patgender mb-2" id="gender">
+        <button class="btn-info">Gender </button>
+        <h5  class="ml-3"> <%= ele.gender %></h5>
+        </div>
+        <div class="container patphone mb-2" id="phone">
+          <button class="btn-info">Phone Number </button>
+          <h5  class="ml-3"> <%= ele.phone %></h5>
+          </div>
+          <br>
+    <div class="container check">
+        <button class="acceptButton btn btn-success" id='acceptButton/<%=ele.id%>' onclick='acceptFunction("<%= ele.id%>")' >Accept</button>
+        <button class="cancelButton btn btn-danger" id='cancelButton/<%= ele.id%>' onclick='cancelFunction("<%= ele.id%>")' >Reject</button>
+      </div>  
+    </div>
+<% }); %>  
+<!--<a href="/videoCall" class="btn btn-secondary">Video Call-->
+  <!-- on click function for acceptbutton  -->
+<script>
+  console.log('Client-side code running');
+
+//when apply button is triggered
+function acceptFunction(PostID){
+
+      var button=document.getElementById('acceptButton/'+PostID);
+
+      //Changes the green color to red
+      //and Appointment to appointed,so that user get a message 
+      //that his request has been sent
+      button.innerHTML='Accepted';
+      button.classList.remove('btn-primary');
+      button.classList.add('btn-danger');
+
+      //_id of post to which patiemt appointed
+      //This is a primary key
+      console.log(PostID);
+
+    
+      //-----------------XML http request------------------------
+
+      //(so without rendering data will be feeded)
+      var xhr=new window.XMLHttpRequest();
+      
+      xhr.open('GET','/doctor/accepted/'+PostID,true);
+      xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+      xhr.send();
+
+}
+function cancelFunction(PostID){
+
+var button=document.getElementById('cancelButton/'+PostID);
+
+//Changes the green color to red
+//and Appointment to appointed,so that user get a message 
+//that his request has been sent
+button.innerHTML='Cancelled';
+button.classList.remove('btn-primary');
+button.classList.add('btn-danger');
+
+//_id of post to which patiemt appointed
+//This is a primary key
+console.log(PostID);
+
+
+//-----------------XML http request------------------------
+
+//(so without rendering data will be feeded)
+var xhr=new window.XMLHttpRequest();
+
+xhr.open('GET','/doctor/cancelled/'+PostID,true);
+xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+xhr.send();
+
+}
+</script>
+  <style>
+    .navbar-nav .nav-item .nav-link{
+    font-size: 15px;
+    font-weight: 200;
+    color:#007bff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 50px;
+}
+
+.navbar-nav .nav-item .nav-link:hover{
+    color:white;
+}
+.h3{
+    text-align: center;
+}
+
+.nav-item{
+    margin-left:5px;
+    
+}
+
+.navbar-nav .nav-item .activeNavLink{
+    
+    color:white;
+}
+
+.navbar-nav li{
+    border-radius: 2%;
+}
+.dropdown-menu{
+  background-color: 	#b0e0e6	;
+}
+.postbox{
+    background-color:black;
+    /*background-image: url('../images/doctor.gif');*/
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    padding:3% 3%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    height: 10%;
+    width:40%;
+    border-color:darkslategrey;
+    border-width: 3px;
+    border-style:solid;
+}
+.patientName{
+  color: aliceblue;
+  font-size: xx-large;
+  font-family: 'Times New Roman', Times, serif;
+}
+.patage,
+.patgender,
+.patphone
+{
+    color:blanchedalmond;
+    display: flex;
+}
+  </style>

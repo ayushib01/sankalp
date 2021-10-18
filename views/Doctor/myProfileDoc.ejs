@@ -1,0 +1,109 @@
+<!-- navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light sticky-top  bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto pr-4">
+          
+        <!--<li class="nav-item btn btn-outline-primary">
+          <a class="nav-link" href="/company/dashboard">
+            <i class="fa fa-bar-chart"></i>
+            Timeline
+          </a>
+        </li>
+
+        <li class="nav-item btn btn-danger">
+            <a class="nav-link activeNavLink" href="/company/addPost">
+                <i class="fa fa-bullhorn"></i>
+                Add Post
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <a class="nav-link" href="/company/statistics">
+                <i class="fa fa-bullhorn"></i>
+                Statistics
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <a class="nav-link" href="/company/assessment">
+                <i class="fa fa-lightbulb-o"></i>
+                Assessment
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#notificationModal" class="nav-link">
+                <i class="fa fa-calendar-check-o"></i>
+                Notifications
+            </button>
+        </li>-->
+
+        <li class="nav-item dropdown btn btn-outline-primary">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user-circle-o"></i>
+                <%= user.name %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/doctor/homeDoc">Back</a>
+              <a class="dropdown-item" href="/doctor/logoutDoc">Logout</a>
+              <a class="dropdown-item" href="/doctor/deleteDoc" >Delete Account</a>
+        </li>
+               
+      </ul>   
+    </div>
+</nav>
+
+<div class="fluid-container profileSection">
+    <div class="container profileForm mt-3">
+
+        <h5 class="Profileheading">Email</h5>
+        <h2 class="details" style="text-transform: lowercase;"><%= user.email %></h2>
+        <h5 class="Profileheading">Location</h5>
+        <h2 class="details" style="text-transform: lowercase;"><%= user.location %></h2>
+        <h5 class="Profileheading">Phone Number</h5>
+        <h2 class="details" style="text-transform: lowercase;"><%= user.phone %></h2> 
+        <h5 class="Profileheading">Specialisation</h5>
+        <h2 class="details" style="text-transform: lowercase;"><%= user.specialisation %></h2>  
+        <h5 class="Profileheading">Available Days</h5>
+        <h2 class="details" style="text-transform: lowercase;"><%= user.availableDays %></h2>
+        <h5 class="Profileheading">Available Hours</h5>
+        <h2 class="details" style="text-transform: lowercase;"><%= user.availableHours %></h2>
+        <h5 class="Profileheading">Qualifications</h5>
+        <h2 class="details" style="text-transform: lowercase;"><%= user.qualifications %></h2>
+    </div>
+</div>
+<a href="/doctor/profileDoc" class="btn btn-secondary">Update  Profile Details</a>
+<style>
+    .navbar-nav .nav-item .nav-link{
+    font-size: 15px;
+    font-weight: 200;
+    color:#007bff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 50px;
+}
+
+.navbar-nav .nav-item .nav-link:hover{
+    color:white;
+}
+.h3{
+    text-align: center;
+}
+
+.nav-item{
+    margin-left:5px;
+    
+}
+
+.navbar-nav .nav-item .activeNavLink{
+    
+    color:white;
+}
+
+.navbar-nav li{
+    border-radius: 2%;
+}
+</style>

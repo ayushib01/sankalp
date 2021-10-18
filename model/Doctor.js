@@ -27,6 +27,33 @@ const docSchema=new mongoose.Schema({
     gender:{
         type:String,
        // required:true
-    }
+    },
+    specialisation:{
+     type:String,
+    },
+    fees:{
+        type:String,
+    },
+    availableDays:{
+        type:String,
+    },
+    availableHours:{
+        type:String,
+    },
+    qualifications:{
+        type:String,
+    },
+    
+    date:{
+        type:Date,
+        default:Date.now
+      },
+    notifications:[String],
+    appointments:{
+        type:mongoose.Schema.Types.Array,
+    },
+    acceptedApp:{
+        type:mongoose.Schema.Types.Array,
+    },
 });
 module.exports=mongoose.model('Doctor',docSchema);

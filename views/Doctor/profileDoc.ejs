@@ -1,0 +1,104 @@
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-3">
+          <i class="fas fa-user-plus"></i> Add Details</h1>
+          <%- include ('../partials/messages') %>
+        <form action="/doctor/profileDoc" method="POST">
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input
+              type="location"
+              id="location"
+              name="location"
+              class="form-control"
+              placeholder="Enter Location"
+              value="<%= typeof location != 'undefined' ? location : '' %>"/>
+          </div>
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input
+              type="age"
+              id="age"
+              name="age"
+              class="form-control"
+              placeholder="Enter age"
+              value="<%= typeof age != 'undefined' ? age : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="phone"
+              id="phone"
+              name="phone"
+              class="form-control"
+              placeholder="Enter Phone number"
+              value="<%= typeof phone != 'undefined' ? phone : '' %>"/>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <input
+              type="gender"
+              id="gender"
+              name="gender"
+              class="form-control"
+              placeholder="Enter Gender female/male/others"
+              value="<%= typeof gender!= 'undefined' ? gender : '' %>"/>
+          </div>
+          <!---extra details-->
+          <div class="form-group">
+            <label for="specialisation">Specialisation</label>
+            <input
+              type="specialisation"
+              id="specialisation"
+              name="specialisation"
+              class="form-control"
+              placeholder="Enter specialisation"
+              value="<%= typeof specialisation!= 'undefined' ? specialisation : '' %>"/>
+          </div>
+          <div class="form-group">
+            <label for="fees">Fees</label>
+            <input
+              type="fees"
+              id="fees"
+              name="fees"
+              class="form-control"
+              placeholder="Enter fees"
+              value="<%= typeof fees!= 'undefined' ? fees : '' %>"/>
+          </div>
+          <div class="form-group">
+            <label for="availableDays">Available Days</label>
+            <input
+              type="availableDays"
+              id="availableDays"
+              name="availableDays"
+              class="form-control"
+              placeholder="Enter available days "
+              value="<%= typeof availableDays!= 'undefined' ? availableDays : '' %>"/>
+          </div>
+          <div class="form-group">
+            <label for="availableHours">Available Hours</label>
+            <input
+              type="availableHours"
+              id="availableHours"
+              name="availableHours"
+              class="form-control"
+              placeholder="Enter available hours (example 12pm to 5pm)"
+              value="<%= typeof availableHours!= 'undefined' ? availableHours: '' %>"/>
+          </div>
+          <div class="form-group">
+            <label for="qualifications">Qualifications</label>
+            <input
+              type="qualifications"
+              id="qualifications"
+              name="qualifications"
+              class="form-control"
+              placeholder="Enter qualifications "
+              value="<%= typeof qualifications!= 'undefined' ? qualifications : '' %>"/>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit Details</button>
+          </form>
+      </div>
+    </div>
+  </div>

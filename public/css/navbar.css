@@ -1,0 +1,28 @@
+.navbar-nav .nav-item .nav-link{
+    font-size: 15px;
+    font-weight: 200;
+    color:#007bff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 50px;
+}
+
+.navbar-nav .nav-item .nav-link:hover{
+    color:white;
+}
+.h3{
+    text-align: center;
+}
+
+.nav-item{
+    margin-left:5px;
+    
+}
+
+.navbar-nav .nav-item .activeNavLink{
+    
+    color:white;
+}
+
+.navbar-nav li{
+    border-radius: 2%;
+}

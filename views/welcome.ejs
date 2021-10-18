@@ -1,10 +1,106 @@
-<div class="row mt-5">
-    <div class="col-md-6 m-auto">
-      <div class="card card-body text-center">
-        <h1><i class="fab fa-node-js fa-3x"></i></h1>
-        <p>Create an account or login</p>
-        <a href="/user/register" class="btn btn-primary btn-block mb-2">Register as patient</a><a href="/doctor/registerDoc" class="btn btn-primary btn-block mb-2">Register as Doctor</a>
-        <a href="/user/login" class="btn btn-secondary btn-block">Login as Patient</a><a href="/doctor/loginDoc" class="btn btn-secondary btn-block">Login as Doctor</a>
-      </div>
-    </div>
+
+<nav class="navbar navbar-expand-lg navbar-light sticky-top ">
+  <!-- <a class="navbar-brand" href=""><img src="/images/logo.jpg" alt="logo" ></a> -->
+  <a style="color:rgb(49, 36, 36)" class="navbar-brand" href=""><i class="fa fa-heartbeat"></i> Sankalp <i class="fa fa-heartbeat"></i></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto pr-4">
+      <li class="nav-item btn btn-danger">
+        <a  class="nav-link activeNavLink" href="/">
+          <i class="fa fa-home"></i> Home
+        </a>
+      </li>
+      
+      <li style="color:white" class="nav-item dropdown btn btn-outline-primary">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user-plus"></i>
+          Sign Up
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/user/register">Patient</a>
+          <a class="dropdown-item" href="/doctor/registerDoc">Doctor</a>
+      </li>
+
+      <li class="nav-item dropdown  btn btn-outline-primary">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-sign-in"></i>
+            Login
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/user/login">Patient</a>
+            <a class="dropdown-item" href="/doctor/loginDoc">Doctor</a>
+        </li>
+      
+    </ul>
+    
   </div>
+</nav>
+  <!-- flash messaging -->
+<!-- 
+  this is mainly works for when any guest user try
+  to go to protected routes
+ -->
+<%- include ("partials/messages") %>
+<div class="text">
+  <img src="images/doctorPatient.jpg" alt="bg photo" width="100%">
+  <div class="text-block">
+    <h1>Sankalp:The hope of new world<h1>
+  </div>
+</div>
+<!--stylesheet-->
+<style>
+ .navbar-nav .nav-item .nav-link{
+    font-size: 15px;
+    font-weight: 200;
+    color:#007bff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 50px;
+}
+
+.navbar-nav .nav-item .nav-link:hover{
+    color:white;
+}
+.h3{
+    text-align: center;
+}
+
+.nav-item{
+    margin-left:5px;
+    
+}
+
+.navbar-nav .nav-item .activeNavLink{
+    
+    color:white;
+}
+
+.navbar-nav li{
+    border-radius: 2%;
+}
+  .text {
+    position: relative;
+  }
+  .h1 {
+      
+    font-family: "Times New Roman", Times, serif;
+    font-size: medium;
+  }
+  /* Bottom right text */
+  .text-block {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    background-color:hsl(34, 56%, 82%);
+    color:chocolate;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+</style>
+
+
+
+

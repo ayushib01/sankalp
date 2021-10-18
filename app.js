@@ -1,4 +1,5 @@
 const express=require('express');
+const path=require('path');
 const mongoose=require('mongoose');
 const app=express();
 const expressLayouts=require('express-ejs-layouts');
@@ -6,7 +7,7 @@ const flash=require('connect-flash');
 const session=require('express-session');
 const passport=require('passport');
 const port=process.env.port || 3000;
-
+const { ensureAuthenticated, forwardAuthenticated } = require('./config/auth');
 // Passport Config
 require('./config/passport')(passport);
 // DB Config
@@ -31,6 +32,8 @@ app.use(passport.initialize());
 app.use(passport.session());
   //connect flash
   app.use(flash());
+  //static folder
+  app.use(express.static(__dirname + '/public'));
  // Global variables
 app.use(function(req, res, next) {
     res.locals.success_msg = req.flash('success_msg');
@@ -39,9 +42,8 @@ app.use(function(req, res, next) {
     next();
   });
 //ROUTES
-app.use(express.static('public'));
+app.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 app.use('/user',require('./route/user'));
-app.use('/',require('./route/index'));
 app.use('/doctor',require('./route/doctor'));
 app.listen(port,()=>{
     console.log(`Server connected to port :${port}`);

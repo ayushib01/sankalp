@@ -1,0 +1,243 @@
+<!-- navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light sticky-top  bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto pr-4">
+          
+        <!--<li class="nav-item btn btn-outline-primary">
+          <a class="nav-link" href="/company/dashboard">
+            <i class="fa fa-bar-chart"></i>
+            Timeline
+          </a>
+        </li>
+
+        <li class="nav-item btn btn-danger">
+            <a class="nav-link activeNavLink" href="/company/addPost">
+                <i class="fa fa-bullhorn"></i>
+                Add Post
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <a class="nav-link" href="/company/statistics">
+                <i class="fa fa-bullhorn"></i>
+                Statistics
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <a class="nav-link" href="/company/assessment">
+                <i class="fa fa-lightbulb-o"></i>
+                Assessment
+            </a>
+        </li>
+
+        <li class="nav-item btn btn-outline-primary">
+            <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#notificationModal" class="nav-link">
+                <i class="fa fa-calendar-check-o"></i>
+                Notifications
+            </button>
+        </li>-->
+        <li class="nav-item dropdown btn btn-outline-primary">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-bell" aria-hidden="true"></i>
+              Notifications
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% user.notifications.forEach(function(ele) { %>
+            <p class="dropdown-item"><i class="fa fa-info" aria-hidden="true"></i> <%= ele %></p>
+            <% }); %>
+      </li>
+        <li class="nav-item dropdown btn btn-outline-primary">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-user-circle-o"></i>
+                <%= user.name %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/user/myProfile">Profile</a>
+              <a class="dropdown-item" href="/user/logout">Logout</a>
+              <a class="dropdown-item" href="/user/delete" >Delete Account</a>
+        </li>
+               
+      </ul>   
+    </div>
+</nav>
+<%- include ('../partials/messages') %>
+<h1 class="mt-4">Home Page Patient</h1>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+<p class="lead mb-3"> <%= user.email %></p>
+<br><br>
+  <% if(typeof doctors !== 'undefined' && doctors.length >0){ %> <% doctors.forEach(function(doc) { %>
+       <%if(doc.specialisation!='' && doc.qualifications !='' && doc.availableDays!=''){%>
+    <div class="container justify-content-center postbox">
+      <div class="container doctorName">
+        <h3><i class="fas fa-user-md"></i> <%= doc.name %></h3>
+      </div>
+      <% if(doc.specialisation!=''){ %>
+      <div class="container speciDoc mb-2" id="specialisation">
+        <button class="btn-info">Specialisation </button>
+        <h5  class="ml-3"> <%= doc.specialisation %></h5>
+      </div><% } %>
+      <% if(doc.qualifications!=''){ %>
+      <div class="container qualiDoc  mb-2">
+        <button class="btn-info">Qualifications</button>
+        <h5 class="ml-3"> <%= doc.qualifications %></h5>
+      </div><% } %>
+      <% if(doc.fees!=''){ %>
+      <div class="container fee mb-2">
+        <button class="btn-info">Fees </button>
+        <h5 class="ml-3"> <%= doc.fees %></h5>
+      </div><% } %>
+      <% if(doc.availableDays!=''){ %>
+      <div class="container days mb-2">
+        <button class="btn-info">Available Days </button>
+        <h5 class="ml-3"> <%= doc.availableDays %></h5>
+      </div><% } %>
+      <% if(doc.availableHours!=''){ %>
+      <div class="container hours mb-2">
+        <button class="btn-info">Available Hours </button>
+        <h5 class="ml-3"> <%= doc.availableHours %></h5>
+      </div><% } %>
+      <% if(doc.location!=''){ %>
+        <div class="container location mb-2">
+          <button class="btn-info">Location </button>
+          <h5 class="ml-3"> <%= doc.location %></h5>
+        </div><% } %>
+        <% var flag=1; 
+        user.appointPatient.forEach(function(email){
+          if(email=== doc.email){
+            flag=-1;
+          }
+        })
+        if(flag===-1){ %> 
+
+          <div class="container appointHere">
+            <button  class="appointButton btn btn-danger">Appointment Booked</button>
+          </div>
+
+          <% } else { %>  
+      <div class="container appointHere">
+        <button class="appointButton btn btn-success" id='appointButton/<%= doc._id %>' onclick='appointFunction("<%= doc._id %>")' >Book Appointment</button>
+      </div>
+      <% } %>
+      <br>
+     <p class="dateToday"><%= doc.date%></p>
+    </div><br><br>
+    <% } %>
+  <% }); %> <% } %>
+   
+
+<!-- on click function for appoint button  -->
+<script>
+  console.log('Client-side code running');
+
+//when apply button is triggered
+function appointFunction(PostID){
+
+      var button=document.getElementById('appointButton/'+PostID);
+
+      //Changes the green color to red
+      //and Appointment to appointed,so that user get a message 
+      //that his request has been sent
+      button.innerHTML='Appointement booked';
+      button.classList.remove('btn-primary');
+      button.classList.add('btn-danger');
+
+      //_id of post to which patiemt appointed
+      //This is a primary key
+      console.log(PostID);
+
+    
+      //-----------------XML http request------------------------
+
+      //(so without rendering data will be feeded)
+      var xhr=new window.XMLHttpRequest();
+      
+      xhr.open('GET','/user/clicked/'+PostID,true);
+      xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
+      xhr.send();
+
+}
+</script>
+<style>
+  .navbar-nav .nav-item .nav-link{
+    font-size: 15px;
+    font-weight: 200;
+    color:#007bff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    height: 50px;
+}
+
+.navbar-nav .nav-item .nav-link:hover{
+    color:white;
+}
+.h3{
+    text-align: center;
+}
+.dropdown-menu{
+  background-color: 	#b0e0e6	;
+}
+.nav-item{
+    margin-left:5px;
+    
+}
+
+.navbar-nav .nav-item .activeNavLink{
+    
+    color:white;
+}
+
+.navbar-nav li{
+    border-radius: 2%;
+}
+  .postbox{
+    background-color:black;
+    /*background-image: url('../images/doctor.gif');*/
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    padding:3% 3%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    width:60%;
+    border-color:darkslategrey;
+    border-width: 3px;
+    border-style:solid;
+}
+
+.doctorName{
+
+    text-transform: uppercase;
+    color:rgb(240, 233, 233);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+.speciDoc {
+    padding-top: 2%;
+    color:#d5ffd5;
+    display: flex;
+}
+
+.hours,
+.location,
+.days,
+.fee,
+.qualiDoc{
+    color:#d5ffd5;
+    display: flex;
+}
+.dateToday{
+  color: white;
+  font-size: small;
+  padding-left: 1rem;
+}
+.btn-danger{
+    border-radius: 5px;
+}
+.appointHere{
+width: auto;
+margin: auto;
+}
+</style>

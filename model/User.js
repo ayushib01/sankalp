@@ -27,7 +27,12 @@ const userSchema=new mongoose.Schema({
     gender:{
         type:String,
        // required:true
-    }
+    },
+        //String=email
+        appointPatient:[String], 
+        rejectedAppoint:{type:mongoose.Schema.Types.Array},
+        accepted:{type:mongoose.Schema.Types.Array},
+        notifications:[String]
 });
 module.exports=mongoose.model('User',userSchema);
 /*

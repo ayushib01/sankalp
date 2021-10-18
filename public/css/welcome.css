@@ -1,0 +1,29 @@
+.container{
+    position: relative;
+    text-align: right;
+    color: white;
+}
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .text {
+    position: relative;
+  }
+  .h1 {
+      
+    font-family: "Times New Roman", Times, serif;
+  }
+  /* Bottom right text */
+  .text-block {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    background-color:hsl(34, 56%, 82%);
+    color:chocolate;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
