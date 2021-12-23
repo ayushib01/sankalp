@@ -54,7 +54,7 @@ console.log('Client-side code running');
     }
   }
   
-  xhr.open('GET','/doctor/download/'+Path,true);
+  xhr.open('GET','/user/download/'+Path,true);
   xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
   xhr.send();
   }

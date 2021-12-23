@@ -1,4 +1,13 @@
 /* Design for home page patient*/
+.patient-home{
+
+    background-image: url('../images/home.png');
+    background-attachment:fixed;
+    background-size: cover;
+    padding:2%;
+    
+   
+ } 
 .postbox1{
     background-color: rgba(0,0,0,.5);
     color: #fff;
@@ -57,12 +66,4 @@ width: 10rem;
 .preferenceHere{
     background-color: rgb(141, 86, 19);
 }
-.patient-home{
-
-    background-image: url('../images/home.png');
-    background-attachment:fixed;
-    background-size: cover;
-    padding:2%;
     
-   
- }     

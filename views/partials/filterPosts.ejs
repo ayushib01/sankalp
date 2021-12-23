@@ -10,13 +10,21 @@
         <div class="modal-body">
   
           <form action="/user/home" method="POST">
+            <div>
             <h4 style="color:#007bff">Location</h4>
             <input type="radio" name="location" value='10'> <label for="location"> Within 10 kms</label><br>
             <input type="radio" name="location" value='25'> <label for="location"> Within 25 kms</label><br>
             <input type="radio" name="location" value='55'> <label for="location"> Within 55 kms</label><br>
-            
-            <button type='submit' class="btn btn-primary">Find</button>
-  
+            <hr>
+            <h4 style="color:#007bff">Search for Doctor</h4>
+  <input type="docName" id="docName" name="docName" class="form-control" placeholder="Enter Doctor's Name" value="<%= typeof docName != 'undefined' ? docName : '' %>"/>
+            <hr>
+            <h4 style="color:#007bff">Search by Specialisation</h4>
+  <input type="speciality" id="speciality" name="speciality" class="form-control" placeholder="Enter Specialisation(ex. dentist,neurologists)" value="<%= typeof speciality != 'undefined' ? speciality : '' %>"/>
+  <hr>          
+  <button type='submit' class="btn btn-primary">Find</button>
+            <br>
+          </div>   
           </form>
              
         </div> 

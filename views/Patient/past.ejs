@@ -1,9 +1,21 @@
 <section class="box">
     <%- include ('../partials/navigation') %>
-    <br><br><br>
-    <div>
-    <h1 class="mt-4">Past Appointments</h1>
-    </div>
+    <br><br><br><br>
+    <div class="justify-content-center" ><h2>Past Appointments</h2></div>
+    <hr>
+    <!-- form used to search doctors profile -->
+        
+<div class="container searchSection border-gradient border-gradient-black" style="background-color: aliceblue;">
+  <h3>Search Doctor</h3>
+  <form action="/user/searchDoctor" method='POST'>
+      <div class="input-group p-3">
+      <input name='doctorName' class="form-control searchInputTag" type="text" id="searchName" placeholder="Type a doctor name here...">
+      <button type='submit' id='searchButton' class="btn btn-light ml-2"><i class="fa fa-paper-plane"></i> Search</button>
+      </div>
+      
+  </form>
+</div>
+
     <br><br>
     <% if(user.historyDetails.length==0){%> 
         <div class="container justify-content-center postbox2" style="height: 400px;right: 50px;">
@@ -32,19 +44,21 @@
                         <button class="btn-info"> Specialisation </button>
                         <h5  class="ml-3"> <%= item.specialisation %></h5>
                         </div>
-          
-            <%  }})%>
-          
-              <div class="container patphone mb-2" id="phone">
-                <button class="btn-info">Uploaded File </button>
-                <%=ele.name%>
-               <div>
-               </div>
-                <button class="downloadButton btn btn-success " id='downloadButton/<%=ele.name%>' onclick='downloadFunction("<%=ele.name%>")' >Download</button> 
-              </div> 
+                        <div class="container patphone mb-2" id="phone">
+                          <button class="btn-info">Uploaded File </button>
+                          <%= ele.name %>
+                         <div>
+                         </div>
+                          <button class="downloadButton btn btn-success " id='downloadButton/<%=ele.name%>' onclick='downloadFunction("<%=ele.name%>")' >Download</button> 
+                        </div> 
+            <%  }})%> 
           </div>
              
        <% }) %>
        <% } %>   
       </section>
-      <script src="/js/download.js"></script> 
+      <script src="/js/download_patient.js"></script> 
+      
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/js/searchAutocomplete.js"></script>

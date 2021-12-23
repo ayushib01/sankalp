@@ -187,6 +187,11 @@ router.get('/home', ensureAuthenticated, (req, res) =>{
   router.post('/home',(req,res)=>{
    // console.log(req.body.location);
     var range=req.body.location;
+    var docName=req.body.docName;
+    var speciality=req.body.speciality;
+   /* console.log(range);
+    console.log(docName);
+    console.log(speciality);*/
     var Docs=[];
   Location.find({ email_location:req.user.email}, {status:false}, function (err, locate) {
     Location.find({status:true}, function (err, doc_locate){  
@@ -218,7 +223,8 @@ router.get('/home', ensureAuthenticated, (req, res) =>{
         dist = dist * 60 * 1.1515;
         dist = dist * 1.609344 ;
       //console.log(dist);
-      if(dist<=range){
+      //console.log(ele.name);
+      if(dist<=range || ele.specialisation.toUpperCase()===speciality.toUpperCase() || ele.name.toUpperCase()===docName.toUpperCase()){
         Docs.push(ele);
       }
       }
@@ -468,6 +474,86 @@ let reqPath = path.join(__dirname, '../');
 })
 res.redirect('/user/home');
 });
+router.get('/download/:path',(req,res)=>{
+
+var reqPath = path.join(__dirname, '../');
+var filePath=path.join(reqPath +'/uploads/'+ req.params.path);
+
+//const file = fs.createWriteStream(filePath);
+res.setHeader('Content-disposition', 'attachment; filename="x.png"');
+res.setHeader('Content-type', 'image/png');
+ // Download function provided by express
+ //console.log(filePath);
+ res.download(filePath);
+// res.pipe(file);
+});
+
+
+
+//search autocomplete feature on companies page
+router.get('/searchAutocomplete',(req,res,next)=>{
+
+  // 'i' is regExp method
+  let regex=new RegExp(req.query['term'],'i');
+
+  //filter companies according to typed characters on search bar
+  let doctorFilter=Doctor.find({name:regex},{'name':1}).sort({'updated_at':-1}).sort({'created_at':-1}).limit(20);
+
+
+  doctorFilter.exec((err,data)=>{
+      console.log(data);
+      let result=[];
+      if(!err){
+          if(data && data.length && data.length>0){
+              data.forEach(doctor=>{
+                  let obj={
+                      id:doctor._id,
+                      label:doctor.name
+                  };
+                  result.push(obj);
+              });
+          }
+
+          res.jsonp(result);
+      }
+  })
+})
+
+
+
+
+
+//after clicking search button
+router.post('/searchDoctor',(req,res)=>{
+ 
+  let doctorName=req.body.doctorName;
+  console.log(doctorName);
+  Doctor.findOne({name:doctorName},(err,doctor)=>{
+      if(doctor){
+        //console.log(doctor);
+        var doc=[];
+        doc.push(doctor);
+          console.log('mil gyi');
+          res.render('Patient/past',{
+            user:req.user,
+            docs:doc
+           })
+      }
+      else{
+        Doctor.find({},(err,doc)=>{
+        //  console.log(doc);
+          res.render('Patient/past',{
+          user:req.user,
+          docs:doc,
+         })
+      })
+      }
+      
+  })
+  
+})
+
+
 // chat functionality
 router.get('/usersChat',(req,res)=>{
 
