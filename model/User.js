@@ -28,17 +28,29 @@ const userSchema=new mongoose.Schema({
         type:String,
        // required:true
     },
-        //String=email
-        appointPatient:[String], 
-        rejectedAppoint:{type:mongoose.Schema.Types.Array},
-        accepted:{type:mongoose.Schema.Types.Array},
-        notifications:[String]
+    weight:{
+        type:String,
+       // required:true
+    },
+    bloodGroup:{
+        type:String,
+       // required:true
+    },
+    height:{
+        type:String,
+    },
+    presentHealthStatus:{
+        type:String,
+    },
+   // pastApp:{type:mongoose.Schema.Types.Array},
+    preference:{type:mongoose.Schema.Types.Array},
+    messages:[String],
+    appointPatient:[String], 
+    rejectedAppoint:{type:mongoose.Schema.Types.Array},
+    accepted:{type:mongoose.Schema.Types.Array},
+    historyDetails:{//doctor email+hidden note+uploaded files
+        type:mongoose.Schema.Types.Array,
+    },
+    notifications:[String]
 });
 module.exports=mongoose.model('User',userSchema);
-/*
-,
-    date:{
-        type:Date,
-        required:Date.now
-    }
-    */

@@ -1,0 +1,25 @@
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filterModalTitle">Filter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <form action="/user/home" method="POST">
+            <h4 style="color:#007bff">Location</h4>
+            <input type="radio" name="location" value='10'> <label for="location"> Within 10 kms</label><br>
+            <input type="radio" name="location" value='25'> <label for="location"> Within 25 kms</label><br>
+            <input type="radio" name="location" value='55'> <label for="location"> Within 55 kms</label><br>
+            
+            <button type='submit' class="btn btn-primary">Find</button>
+  
+          </form>
+             
+        </div> 
+      </div>
+    </div>
+  </div>

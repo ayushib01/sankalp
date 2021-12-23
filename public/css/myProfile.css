@@ -1,0 +1,27 @@
+.myProfile
+    {
+        background-image: url('../images/profile.png');
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+.postbox4{
+        background-color:aliceblue;
+      /* background-image: url('../images/patient.jpg');
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    padding:2% 2%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    width:50%;
+    border-color:rgb(168, 243, 243);
+    border-width: 3px;
+    border-style:solid;
+    -webkit-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    -moz-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+} 
+.profile{
+    color:chocolate;
+    display: flex;
+    font-family: 'Times New Roman', Times, serif;
+}     

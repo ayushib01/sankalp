@@ -1,10 +1,14 @@
-<div class="row mt-5">
-    <div class="col-md-6 m-auto">
-      <div class="card card-body">
-        <h1 class="text-center mb-3">
-          <i class="fas fa-user-plus"></i> Add Details</h1>
-          <%- include ('../partials/messages') %>
-        <form action="/doctor/profileDoc" method="POST">
+<%- include ('../partials/navigationDoc') %>
+
+  <div class="fluid-container portfolioBG">
+        <div class="portfolioHeading">
+            <h4 style="color:balck">CREATE PROFILE</h4>
+            <h5 style="color: black;"><%= user.name %></h5>
+            <h5 style="color: black;"><%= user.email %></h5>
+       <%- include ('../partials/messages') %>
+        </div>
+    <div class="col-md-6 m-auto">  
+        <form action="/doctor/profileDoc" method="POST" class="portfolioForm">
           <div class="form-group">
             <label for="location">Location</label>
             <input
@@ -36,15 +40,11 @@
               placeholder="Enter Phone number"
               value="<%= typeof phone != 'undefined' ? phone : '' %>"/>
           </div>
-          <div class="form-group">
-            <label for="gender">Gender</label>
-            <input
-              type="gender"
-              id="gender"
-              name="gender"
-              class="form-control"
-              placeholder="Enter Gender female/male/others"
-              value="<%= typeof gender!= 'undefined' ? gender : '' %>"/>
+          <div class="form-group ">
+            <label for="gender">Gender </label><br>
+            <input type="radio" name="gender" value='Female'> <label for="gender"> Female</label><br>
+            <input type="radio" name="gender" value='Male'>   <label for="gender"> Male</label><br>
+            <input type="radio" name="gender" value='others'> <label for="gender"> others</label><br>
           </div>
           <!---extra details-->
           <div class="form-group">
@@ -97,8 +97,10 @@
               placeholder="Enter qualifications "
               value="<%= typeof qualifications!= 'undefined' ? qualifications : '' %>"/>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Submit Details</button>
+          <div class="d-flex justify-content-center" style="size: 50%;">
+          <button type="submit" class="btn btn-primary btn-block">Submit Details</button></div>
           </form>
       </div>
     </div>
-  </div>
+  
+    <%- include ('../partials/footer') %>

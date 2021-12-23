@@ -1,0 +1,40 @@
+<section class="box-history" >
+  <%- include ('../partials/navigationDoc') %>
+
+  <div class="container justify-content-center postbox2" style="left: 220px;">
+   <h4>Enter details of Appointment Completed</h4> 
+  <div class="container patage mb-2" id="name">
+    <button class="btn-info">Name</button> 
+    <h5  class="ml-3"><%= pat.name %></h5>
+    </div>
+ <div class="container patage mb-2" id="age">
+  <button class="btn-info">Age </button> 
+  <h5  class="ml-3"><%= pat.age %></h5>
+  </div>
+  <div class="container patgender mb-2" id="gender">
+    <button class="btn-info">Gender</button> 
+    <h5  class="ml-3"><%= pat.gender %></h5>
+    </div>
+    <div class="container patphone mb-2" id="phone">
+      <button class="btn-info">Phone</button>  
+      <h5  class="ml-3"><%= pat.phone %></h5>
+      </div>
+      <form action="/doctor/HistoryDetails/<%= pat.email %>" enctype="multipart/form-data" method="POST" >
+      <div class="container patphone mb-2" id="file">
+        <button class="btn-info">Upload File</button>
+       <!-- <form action="/doctor/uploadphoto/<%= pat.email %>" enctype="multipart/form-data" method="POST">-->
+          <input type="file" name="myImage" accept="image/*" value="" required>
+        <!--  <input type="submit" value="Upload Photo">-->
+      </div>
+      <div class="container patphone mb-2" id="note">    
+        <button class="btn-info">Add Note</button>
+<label for="Note"  id="docnote"></label>
+<input type="text" id="addNote" name="addNote"  placeholder="Enter symptom ,expected recovery etc." value="<%= typeof addNote != 'undefined' ? addNote : '' %>" size="40" height="50"> 
+      </div>
+      <div class="d-flex justify-content-center" style="size: 50%;">
+        <button type="submit" class="btn btn-primary ">Update Past Appointments</button>
+      </div>
+</form> 
+</div> 
+</section>
+<%- include ('../partials/footer') %>

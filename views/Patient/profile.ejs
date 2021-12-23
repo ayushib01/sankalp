@@ -1,12 +1,19 @@
-<div class="row mt-5">
-    <div class="col-md-6 m-auto">
-      <div class="card card-body">
-        <h1 class="text-center mb-3">
-          <i class="fas fa-user-plus"></i> Add Details</h1>
-          <%- include ('../partials/messages') %>
-        <form action="/user/profile" method="POST">
-          <div class="form-group">
-            <label for="location">Location</label>
+
+<%- include ('../partials/navigation') %>
+
+
+  <div class="fluid-container portfolioBG">
+        <div class="portfolioHeading">
+            <h4 style="color:balck">CREATE PROFILE</h4>
+            <h5 style="color: black;"><%= user.name %></h5>
+            <h5 style="color: black;"><%= user.email %></h5>
+       <%- include ('../partials/messages') %>
+        </div>
+    <div class="col-md-6 m-auto">    
+        <form action="/user/profile" method="POST" class="portfolioForm">
+
+          <div class="form-group ">
+            <label for="location">Location </label>
             <input
               type="location"
               id="location"
@@ -16,8 +23,8 @@
               value="<%= typeof location != 'undefined' ? location : '' %>"/>
           </div>
           <div id="match-list"></div>
-          <div class="form-group">
-            <label for="age">Age</label>
+          <div class="form-group ">
+            <label for="age">Age </label>
             <input
               type="age"
               id="age"
@@ -28,7 +35,7 @@
             />
           </div>
           <div class="form-group">
-            <label for="phone">Phone</label>
+            <label for="phone">Phone </label>
             <input
               type="phone"
               id="phone"
@@ -38,19 +45,56 @@
               value="<%= typeof phone != 'undefined' ? phone : '' %>"
             />
           </div>
-          <div class="form-group">
-            <label for="gender">Gender</label>
-            <input
-              type="gender"
-              id="gender"
-              name="gender"
-              class="form-control"
-              placeholder="Enter Gender female/male/others"
-              value="<%= typeof gender!= 'undefined' ? gender : '' %>"/>
+          <div class="form-group ">
+            <label for="gender">Gender </label><br>
+            <input type="radio" name="gender" value='Female'> <label for="gender"> Female</label><br>
+            <input type="radio" name="gender" value='Male'>   <label for="gender"> Male</label><br>
+            <input type="radio" name="gender" value='others'> <label for="gender"> others</label><br>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Submit Details</button>
-          </form>
-      </div>
+          <div class="form-group ">
+            <label for="weight">Weight </label>
+            <input
+              type="weight"
+              id="weight"
+              name="weight"
+              class="form-control"
+              placeholder="Enter weight(in kgs) "
+              value="<%= typeof weight!= 'undefined' ? weight : '' %>"/>
+          </div>
+          <div class="form-group ">
+            <label for="height">Height </label>
+            <input
+              type="height"
+              id="height"
+              name="height"
+              class="form-control"
+              placeholder="Enter height"
+              value="<%= typeof height!= 'undefined' ? height : '' %>"/>
+          </div>
+          <div class="form-group ">
+            <label for="bloodGroup">Blood Group</label>
+            <input
+              type="bloodGroup"
+              id="bloodGroup"
+              name="bloodGroup"
+              class="form-control"
+              placeholder="Enter blood group"
+              value="<%= typeof bloodGroup!= 'undefined' ? bloodGroup : '' %>"/>
+          </div>
+          <div class="form-group ">
+            <label for="presentHealthStatus">Present Health Status </label>
+            <input
+              type="presentHealthStatus"
+              id="presentHealthStatus"
+              name="presentHealthStatus"
+              class="form-control"
+              placeholder="Enter Present Health Status(Normal/Any Other Problem)"
+              value="<%= typeof presentHealthStatus!= 'undefined' ? presentHealthStatus : '' %>"/>
+          </div>
+          <div class="d-flex justify-content-center" style="size: 50%;">
+          <button type="submit" class="btn btn-primary btn-block" >Submit Details</button>
+          </div>   
+      </form>
     </div>
-  </div>
-  
+</div>
+<%- include ('../partials/footer') %>

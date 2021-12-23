@@ -1,0 +1,45 @@
+
+   .postbox{
+    background-color:black;
+    /*background-image: url('../images/doctor.gif');*/
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    padding:3% 3%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    height: 10%;
+    width:40%;
+    border-color:darkslategrey;
+    border-width: 3px;
+    border-style:solid;
+}
+.patientName{
+  color: aliceblue;
+  font-size: xx-large;
+  font-family: 'Times New Roman', Times, serif;
+}
+.patage,
+.patgender,
+.patphone
+{
+    color:blanchedalmond;
+    display: flex;
+}
+.box{
+  background-image: url('../images/appointment.png');
+  background-attachment:fixed;
+  background-size: cover;
+  padding:2%; 
+  }
+  .cancelled{
+      /*background-image: url('../images/doctor.gif');*/
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    background-color:whitesmoke;
+    padding:3% 3%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    height: 10%;
+    width:40%;
+    border-color:darkslategrey;
+    border-width: 3px;
+    border-style:solid;
+  }

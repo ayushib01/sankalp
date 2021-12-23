@@ -1,103 +1,47 @@
-<!-- navigation bar -->
-<nav class="navbar navbar-expand-lg navbar-light sticky-top  bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto pr-4">
-          
-        <!--<li class="nav-item btn btn-outline-primary">
-          <a class="nav-link" href="/company/dashboard">
-            <i class="fa fa-bar-chart"></i>
-            Timeline
-          </a>
-        </li>
 
-        <li class="nav-item btn btn-danger">
-            <a class="nav-link activeNavLink" href="/company/addPost">
-                <i class="fa fa-bullhorn"></i>
-                Add Post
-            </a>
-        </li>
+<%- include ('../partials/navigation') %>
 
-        <li class="nav-item btn btn-outline-primary">
-            <a class="nav-link" href="/company/statistics">
-                <i class="fa fa-bullhorn"></i>
-                Statistics
-            </a>
-        </li>
-
-        <li class="nav-item btn btn-outline-primary">
-            <a class="nav-link" href="/company/assessment">
-                <i class="fa fa-lightbulb-o"></i>
-                Assessment
-            </a>
-        </li>
-
-        <li class="nav-item btn btn-outline-primary">
-            <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#notificationModal" class="nav-link">
-                <i class="fa fa-calendar-check-o"></i>
-                Notifications
-            </button>
-        </li>-->
-
-        <li class="nav-item dropdown btn btn-outline-primary">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user-circle-o"></i>
-                <%= user.name %>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/user/home">Back</a>
-              <a class="dropdown-item" href="/user/logout">Logout</a>
-              <a class="dropdown-item" href="/user/delete" >Delete Account</a>
-        </li>
-               
-      </ul>   
+<header>
+<div class="container justify-content-center postbox4">
+    <div class="container patName">
+      <h3><i class="fa fa-user"></i> <%= user.name %></h3>
     </div>
-</nav>
-
-<div class="fluid-container profileSection">
-    <div class="container profileForm mt-3">
-
-        <h5 class="Profileheading">Email</h5>
-        <h2 class="details" style="text-transform: lowercase;"><%= user.email %></h2>
-        <h5 class="Profileheading">Location</h5>
-        <h2 class="details" style="text-transform: lowercase;"><%= user.location %></h2>
-        <h5 class="Profileheading">Phone Number</h5>
-        <h2 class="details" style="text-transform: lowercase;"><%= user.phone %></h2> 
-        <h5 class="Profileheading">Gender</h5>
-        <h2 class="details" style="text-transform: lowercase;"><%= user.gender %></h2>   
+    <br><br>
+    <div class="container profile mb-2" id="specialisation">
+      <button class="btn-info">Email Id </button>
+      <h5  class="ml-3"> <%= user.email %></h5>
     </div>
+    <div class="container profile mb-2" id="specialisation">
+        <button class="btn-info">Age </button>
+        <h5  class="ml-3"> <%= user.age%></h5>
+      </div>
+    <div class="container profile  mb-2">
+      <button class="btn-info">Location</button>
+      <h5 class="ml-3"> <%= user.location %></h5>
+    </div>
+    <div class="container profile mb-2">
+      <button class="btn-info">Phone Number </button>
+      <h5 class="ml-3"> <%= user.phone %></h5>
+    </div>
+    <div class="container profile mb-2">
+      <button class="btn-info">Weight </button>
+      <h5 class="ml-3"> <%= user.weight %></h5>
+    </div>
+    <div class="container profile mb-2">
+      <button class="btn-info">Height </button>
+      <h5 class="ml-3"> <%= user.height %></h5>
+    </div>
+    <div class="container profile mb-2">
+      <button class="btn-info">Blood Group </button>
+      <h5 class="ml-3"> <%= user.bloodGroup %></h5>
+    </div>
+    <div class="container profile mb-2">
+      <button class="btn-info">Heath Status </button>
+      <h5 class="ml-3"> <%= user.presentHealthStatus %></h5>
+    </div>
+    <br><br>
+<a href="/user/profile" class="btn btn-success ">Update  Profile Details</a>
 </div>
-<a href="/user/profile" class="btn btn-secondary">Update  Profile Details</a>
-<style>
-    .navbar-nav .nav-item .nav-link{
-    font-size: 15px;
-    font-weight: 200;
-    color:#007bff;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    height: 50px;
-}
+</header>
+<%- include ('../partials/footer') %>
 
-.navbar-nav .nav-item .nav-link:hover{
-    color:white;
-}
-.h3{
-    text-align: center;
-}
-
-.nav-item{
-    margin-left:5px;
-    
-}
-
-.navbar-nav .nav-item .activeNavLink{
-    
-    color:white;
-}
-
-.navbar-nav li{
-    border-radius: 2%;
-}
-</style>

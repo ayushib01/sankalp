@@ -43,7 +43,9 @@ const docSchema=new mongoose.Schema({
     qualifications:{
         type:String,
     },
-    
+    doubts:{
+        type:String,
+    },
     date:{
         type:Date,
         default:Date.now
@@ -55,5 +57,8 @@ const docSchema=new mongoose.Schema({
     acceptedApp:{
         type:mongoose.Schema.Types.Array,
     },
+    historyDetails:{//patient email+hidden note+uploaded files
+        type:mongoose.Schema.Types.Array,
+    }
 });
 module.exports=mongoose.model('Doctor',docSchema);

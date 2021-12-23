@@ -1,0 +1,37 @@
+<!-- we will use it as a partial -->
+<!-- notification Modal -->
+<div class="modal fade" id="docMessageModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalTitle" aria-hidden="true">
+    <div  class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="notificationModalTitle"><i class="fa fa-envelope-open"></i> Doctor's Messages (Present Appointments Info)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div style="background-color: #447a3f;-webkit-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+        -moz-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+        box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);" class="modal-body">
+          <!-- When there is no notification -->
+          <% if(user.messages.length==0){%> 
+            <ul class="list-group list-group-flush">
+              <li  style="background-color: #74a570; color:white" class="list-group-item">
+                No messages yet. 
+              </li>      
+            </ul> 
+          <% } else { 
+            user.messages.forEach(function(notification){ %>
+                <ul class="list-group list-group-flush">
+                    <div style="border:2px; border-color: #3bbb09;">
+                      <li style="background-color: #74a570; color:white" class="list-group-item"><%= notification %></li> 
+                    </div>
+                         
+                </ul>
+           <% }) %>
+          <% } %>
+
+        </div>
+        
+      </div>
+    </div>
+</div>

@@ -1,9 +1,11 @@
+<section class="register">
 <%- include ('partials/design') %>
-<div class="row mt-5">
-    <div class="col-md-6 m-auto">
+
+<!--<div class="row mt-5">-->
+    <div class="col-md-6 m-auto" >
       <div class="card card-body">
         <h1 class="text-center mb-3">
-          <i class="fas fa-user-plus"></i> Register Patient</h1>
+          <i class="fa fa-user-plus"></i> Register Patient</h1>
           <%- include ('partials/messages') %>
         <form action="/user/register" method="POST">
           <div class="form-group">
@@ -87,7 +89,7 @@
                 </div>
               </div>
             </div>
-          </div>
+         </div>
 
 
           <!-- MOdal box to show error related to OTP -->
@@ -118,7 +120,9 @@
         <p class="lead mt-4">You are doctor? <a href="/doctor/registerDoc">Register here</a></p>-->
       </div>
     </div>
-  </div>
+  <!--</div>-->
+  </section>
+  <%- include ('partials/footer') %>
 <script>
   // ------This code is basically used to generate OTP-----
 

@@ -1,0 +1,83 @@
+
+/*Design for home page of Doctor*/
+.postbox2{
+    background-color: rgba(0,0,0,.5);
+    color: #fff;
+    /*background-image: url('../images/doctor.gif');*/
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    padding:3% 3%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    height: 10%;
+    width:45%;
+    border-color:darkslategrey;
+    border-width: 3px;
+    border-style:solid;
+    position: relative;
+    -webkit-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    -moz-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    bottom: 2%;
+}
+.preferenceHere{
+    background-color: rgb(141, 86, 19);
+}
+
+.patientName{
+  color: aliceblue;
+  font-size: xx-large;
+  font-family: 'Times New Roman', Times, serif;
+}
+.patage,
+.patgender,
+.patphone
+{
+    color:blanchedalmond;
+    display: flex;
+}
+.doctor{
+      background-image: url('../images/home.png');
+    background-attachment:fixed;
+    background-size: cover;
+    padding:2%;
+    }
+.newsbox{
+    background-color: rgba(0,0,0,.5);
+    color: #fff;
+    left: -5px;
+}
+
+/*Design fo myprofile doc*/
+.postbox3{
+   /* background-color:black;*/
+    background-image: url('../images/doc.jpg');
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    padding:3% 3%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    width:60%;
+    border-color:rgb(168, 243, 243);
+    border-width: 3px;
+    border-style:solid;
+    -webkit-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    -moz-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+    bottom: 2%;
+}
+.doctorName3{
+    color:black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+  .box-history
+ {
+      background-image: url('../images/history.png');
+    background-attachment:fixed;
+    background-size: cover;
+    padding:2%;
+    }
+    header{
+        background-image: url('../images/profile.png');
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }

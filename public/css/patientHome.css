@@ -1,0 +1,68 @@
+/* Design for home page patient*/
+.postbox1{
+    background-color: rgba(0,0,0,.5);
+    color: #fff;
+    /*background-image: url('../images/doctor.gif');*/
+    /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
+    padding:3% 3%;
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+    height: 10%;
+    width:45%;
+    border-color:darkslategrey;
+    border-width: 3px;
+    border-style:solid;
+}
+.doctorName{
+
+text-transform: uppercase;
+color:whitesmoke;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+.speciDoc {
+padding-top: 2%;
+color:#d5ffd5;
+display: flex;
+}
+
+.hours,
+.location,
+.days,
+.fee,
+.qualiDoc{
+color:#d5ffd5;
+display: flex;
+}
+.warningmsg{
+background-color:burlywood;
+}
+.dateToday{
+color: white;
+font-size: small;
+padding-left: 1rem;
+}
+.btn-danger{
+border-radius: 5px;
+}
+.appointHere{
+width: auto;
+margin: auto;
+}
+.btn-info{
+width: 10rem;
+}
+
+.preferenceHere{
+    background-color: rgb(141, 86, 19);
+}
+.patient-home{
+
+    background-image: url('../images/home.png');
+    background-attachment:fixed;
+    background-size: cover;
+    padding:2%;
+    
+   
+ }     

@@ -1,0 +1,24 @@
+<section class="box">
+<%- include ('../partials/navigation') %>
+<br><br><br>
+<div>
+<h1 class="mt-4">Cancelled Appointments</h1>
+</div>
+<br><br>
+<% if(user.rejectedAppoint.length==0){%> 
+  <div class="container justify-content-center postbox2" style="height: 400px;right: 50px;">
+    <h5 style="color: black;"> No Cancelled Appointments </h5>
+  </div>
+  <% } else { 
+ user.rejectedAppoint.forEach(function(doc) { %>
+  <div class="container justify-content-center cancelled">
+    <h5><i class="fa fa-user-md " aria-hidden="true"></i> Dr. <%= doc.name %></h5>
+    <p><i class="fa fa-hand-o-right" aria-hidden="true"></i> Email Id: <%= doc.email %> </p>
+    <p><i class="fa fa-hand-o-right" aria-hidden="true"></i> Phone Number: <%= doc.phone %> </p>
+    <p><i class="fa fa-hand-o-right" aria-hidden="true"></i> Specialisation: <%= doc.specialisation %> </p>
+</div>
+<br><br>
+
+<% }) %>
+<% } %>
+</section>

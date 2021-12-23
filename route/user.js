@@ -5,14 +5,21 @@ const nodemailer = require('nodemailer');
 const flash=require('connect-flash');
 const passport = require('passport');
 const session=require('express-session');
+const axios=require('axios');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 // Load User model
 //bring auth-config file
 // =>ensureAuthenticated : Use to protect the routes 
 // =>forwardAuthenticated : by pass the routes without having authentication
 const User = require('../model/User');
 const Doctor=require('../model/Doctor');
+const Location = require('../model/Location');
+const Message = require('../model/Message');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
-
+//Mapbox acces token to get the location coordinates
+var ACCESS_TOKEN = 'pk.eyJ1IjoiYXl1c2hpMDEiLCJhIjoiY2t4N3J0YzQxMWFxaTJwbzVsandqbzRqeCJ9.0ifHQpUMuA2CbUsyPieb1g';
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 
@@ -120,10 +127,13 @@ router.post('/OTP/:emailID',(req,res)=>{
     <h3>Thank you !</h3>
     `;
 
-
+ //console.log(email);   
+ console.log(OTP);
   //create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host:'smtp.gmail.com',
+    port:587,//465
+    secure:false,
     auth: {
       user: 'sankalp2021webster@gmail.com',
       pass: 'sankalp@1234' 
@@ -161,25 +171,68 @@ router.post('/login', (req, res, next) => {
   });
   
 
-//delete Account
-router.get('/delete',(req,res)=>{
-  User.deleteOne({_id : (req.user._id)})
-  .then(user=>{
-  req.flash('success_msg', 'Your Account is Deleted!!');
-  res.redirect('/user/register');
-  })
-  .catch(err => console.log(err));
-});
+
 // Home
-router.get('/home', ensureAuthenticated, (req, res) =>
+router.get('/home', ensureAuthenticated, (req, res) =>{
  Doctor.find({},(err,docs)=>{
-   //here doctors is array of objects
+//here doctors is array of objects
    res.render('Patient/home',{
      user:req.user,
      doctors:docs,
    })
  })
-);
+});
+//Post request for the nearby doctors algo
+
+  router.post('/home',(req,res)=>{
+   // console.log(req.body.location);
+    var range=req.body.location;
+    var Docs=[];
+  Location.find({ email_location:req.user.email}, {status:false}, function (err, locate) {
+    Location.find({status:true}, function (err, doc_locate){  
+      var lat1,lon1;
+      locate.forEach((value)=>{
+       lat1=value.latitude;
+       lon1=value.longitude;
+      })
+      //var lat1=locate.latitude;var lon1=locate.longitude;console.log(lat1);
+   Doctor.find({},(err,docs)=>{
+      docs.forEach((ele)=>{
+     doc_locate.forEach((item)=>{
+      if(ele.email==item.email_location)
+      {
+      var lat2=item.latitude;
+      var lon2=item.longitude;
+      //console.log(lat2);
+        // degrees to radians.
+        var radlat1 = Math.PI * lat1/180;
+        var radlat2 = Math.PI * lat2/180;
+        var theta = lon1-lon2;
+        var radtheta = Math.PI * theta/180;
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist);
+        dist = dist * 180/Math.PI;
+        dist = dist * 60 * 1.1515;
+        dist = dist * 1.609344 ;
+      //console.log(dist);
+      if(dist<=range){
+        Docs.push(ele);
+      }
+      }
+     })
+     });
+     //here doctors is array of objects
+     res.render('Patient/home',{
+       user:req.user,
+       doctors:Docs,
+     })
+   })
+  })
+  })
+  });
  //profile
  router.get('/profile',(req,res)=>res.render('Patient/profile', {
   user: req.user,
@@ -189,32 +242,74 @@ router.get('/myProfile',(req,res)=>res.render('Patient/myProfile',{
   user:req.user,
 })
 );
+router.get('/present',(req,res)=>res.render('Patient/present',{
+  user:req.user,
+})
+);
+router.get('/past',(req,res)=>{
+  Doctor.find({},(err,doc)=>{
+      res.render('Patient/past',{
+      user:req.user,
+      docs:doc,
+     })
+  })
+});
+router.get('/cancel',(req,res)=>res.render('Patient/cancel',{
+  user:req.user,
+})
+);
+
   //profile 
-  router.post('/profile',async(req,res)=>{
-    const { location, age, phone, gender} = req.body;
+router.post('/profile',async(req,res)=>{
+    const { location, age, phone, gender,weight,height,bloodGroup,presentHealthStatus} = req.body;
     let errors = [];
-    var flag=0;
-    let genderList=['female','male','others'];
-    genderList.forEach((element)=>{
-        if(element===gender)
-        flag=1;
-    });
-    if (!location || !age || !phone || !gender) {
+  
+    if (!location || !age || !phone || !gender || !presentHealthStatus || !weight || !height || !bloodGroup) {
       errors.push({ msg: 'Please enter all fields' });
     }
    if(phone.length!=10)
    errors.push({ msg: 'Enter Valid phone Number' });
-    
-    if (flag===0) {
-      errors.push({ msg: 'Enter Valid Gender' });
-    }
+//checking if location entered is valid----------------------
+var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+location+'.json?access_token='+ ACCESS_TOKEN + '&limit=1';
+axios.get(url)
+.then(async function(response){
+ var longitude=response.data.features[0].geometry.coordinates[0];
+ var latitude=response.data.features[0].geometry.coordinates[1];
+ var place_name=response.data.features[0].place_name;
+ var email_location=req.user.email;
+ let status=false;
+  Location.deleteOne({email_location:req.user.email},{status:false}, function (err) {
+  if(err) console.log(err);
+  console.log("Successful deletion");
+});
+ var myData = new Location({email_location,longitude,latitude,place_name,status});
+ myData.save(function (err) {
+   if (err) {
+    console.log(err);
+   } else {
+      console.log('successfully saved to location');
+   }});
+  
+ //result=[longitude,latitude,place];  
+
+})
+.catch(function(error){
+console.log(error); 
+return;  
+});
+//------------------ends here-----------------------------------
+
     if (errors.length > 0) {
       res.render('Patient/profile', {
         errors,
         location,
         age,
         phone,
-        gender
+        gender,
+        weight,
+        height,
+        bloodGroup,
+        presentHealthStatus
       });
     }
     else{
@@ -223,6 +318,10 @@ router.get('/myProfile',(req,res)=>res.render('Patient/myProfile',{
           profileField.age = age;
           profileField.phone = phone;
           profileField.gender = gender;
+          profileField.weight = weight;
+          profileField.height = height;
+          profileField.presentHealthStatus = presentHealthStatus;
+          profileField.bloodGroup = bloodGroup;
   try {
   let profile = await User.findOneAndUpdate({ _id : (req.user.id)}, { $set: profileField }, { new: true });
   req.flash('success_msg', 'Details successfully updated');
@@ -233,35 +332,47 @@ router.get('/myProfile',(req,res)=>res.render('Patient/myProfile',{
       }
     }
   });
+ //preference send by patient to doctor
+ router.get('/preference/:email/:mode/:time',(req,res)=>{
+  const docEmail=req.params.email;
+  const mode=req.params.mode;
+  const time=req.params.time;
+  User.findOne({email:req.user.email},(err,patient)=>{
+var flag=0;
+patient.preference.forEach((item)=>{
+if(item.email===docEmail)
+{
+  item.mode=mode;
+  item.time=time;
+  flag=1;
+}
+});
+if(flag===0)
+{  const preferenceField={};
+  preferenceField.email=docEmail;
+  preferenceField.mode=mode;
+  preferenceField.time=time;
+  patient.preference.push(preferenceField);}
+User.updateOne({email:req.user.email},patient,(err)=>{
+  if(err){
+      console.log(err);
+      return;
+  }
+  else{
+      console.log("update ho gya");
+      return res.status(200).end();
+  }
+})
+});
+
+});
 
   //appointment booking and displaying it on doc home
-  router.get('/clicked/:id',(req,res)=>{
-    var docId=req.params.id;
-    console.log(docId);
-    //console.log(req.user.email);
-    //console.log(req.user.id);
-   /* User.findOne({email:req.user.email},(err,patient)=>{
-      console.log(patient.appointPatient);
-    })*/
-Doctor.findOne({_id:docId},(err,docs)=>{
+  router.get('/clicked/:email',(req,res)=>{
+    var docEmail=req.params.email;
+    console.log(docEmail);
+Doctor.findOne({email:docEmail},(err,docs)=>{
     docs.notifications.unshift(req.user.name+' has booked a appointment.');
-    //docs.appointments.push(req.user);
-   // docs.save();
-    /*User.findOne({_id:req.user._id},(err,patient)=>{
-      if(err){
-        console.log(err);
-        return;
-    }
-    else{
-      res.render('Doctor/homeDoc',{
-        patientId:patient._id,
-        name:patient.name,
-        email:patient.email,
-        
-      })
-    }
-    })*/
-
     const profileField = {};
     profileField.name = req.user.name;
     profileField.email = req.user.email;
@@ -269,8 +380,20 @@ Doctor.findOne({_id:docId},(err,docs)=>{
     profileField.age = req.user.age;
     profileField.gender = req.user.gender;
     profileField.phone = req.user.phone;
+   
+    var mode='',time='';
+    req.user.preference.forEach((item)=>{
+      if(item.email===docEmail)
+      {
+        mode=item.mode;
+        time=item.time;
+      }
+    });
+    profileField.mode =mode;
+    profileField.time =time;
+    //console.log(`time is ${profileField}`);
     docs.appointments.push(profileField);
-    Doctor.updateOne({_id:docId},docs,(err)=>{//{$set:{appointments:profileField}}
+    Doctor.updateOne({email:docEmail},docs,(err)=>{//{$set:{appointments:profileField}}
       if(err){
           console.log(err);
           return;
@@ -308,10 +431,104 @@ patient.appointPatient.push(docs.email);
  })
 })
 })
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+var upload = multer({ storage: storage });
+router.post('/uploads/:email',upload.single('myImage'), (req, res) => {
+  var doc_email=req.params.email;
+let reqPath = path.join(__dirname, '../');
+
+  Doctor.findOne({email:doc_email},(err,docs)=>{
+
+   docs.acceptedApp.forEach((item)=>{
+     if(item.email==req.user.email){
+       item.filename= req.file.filename;
+       item.data =fs.readFileSync(path.join(reqPath +'/uploads/'+ req.file.filename));
+       item.contentType = "image/png";
+     }
+   })
+    Doctor.updateOne({email:doc_email},docs,(err)=>{
+      if(err){
+          console.log(err);
+          return;
+      }
+      else{
+          console.log("update ho gya");
+          return res.status(200).end();
+      }
+  })
+})
+res.redirect('/user/home');
+});
+// chat functionality
+router.get('/usersChat',(req,res)=>{
+
+  //send all messages to chat page
+  Message.find({},(err,messages)=>{
+      res.render('chat/usersChat',{
+          user:req.user,
+          messages:messages
+      })
+  })
+  
+})
+
+// used to save message to database
+router.post('/addMsgToChat',(req,res)=>{
+
+      const newMsg=new Message({
+          senderName:req.body.senderName,
+          sendingTime:req.body.sendingTime,
+          senderMsg:req.body.senderMsg
+      })
+
+      newMsg.save()
+      .then(msg=>{
+          console.log(msg);
+          
+      })
+      .catch(err=>console.log(err));
+})
    // Logout
    router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/');
   });
+  //delete Account
+router.get('/delete',(req,res)=>{
+  //delete from appointments and acceptedApp
+  Doctor.find({},(err,docs)=>{
+    docs.forEach((doc)=>{
+      if(docs.appointments.findIndex(item => item.email === req.user.email)!==-1)
+      doc.appointments.splice(doc.appointments.findIndex(item => item.email === req.user.email), 1);
+      if(docs.acceptedApp.findIndex(item => item.email === req.user.email)!==-1)
+      doc.acceptedApp.splice(doc.acceptedApp.findIndex(item => item.email === req.user.email), 1);
+      Doctor.updateOne({email:doc.email},doc,(err)=>{
+        if(err){
+            console.log(err);
+            return;
+        }
+        else{
+            console.log("update ho gya doctor after deleting patient account");
+            return res.status(200).end();
+        }
+    })
+    })
+  });
+  User.deleteOne({_id : (req.user._id)})
+  .then(user=>{
+  req.flash('success_msg', 'Your Account is Deleted!!');
+  res.redirect('/user/register');
+  })
+  .catch(err => console.log(err));
+});
 module.exports=router;

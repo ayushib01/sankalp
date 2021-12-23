@@ -1,12 +1,14 @@
-
-<nav class="navbar navbar-expand-lg navbar-light sticky-top ">
-  <!-- <a class="navbar-brand" href=""><img src="/images/logo.jpg" alt="logo" ></a> -->
-  <a style="color:rgb(49, 36, 36)" class="navbar-brand" href=""><i class="fa fa-heartbeat"></i> Sankalp <i class="fa fa-heartbeat"></i></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<section class="welcome">
+  <div class="mainheader">
+<!--NAVBAR-->
+<nav class="navbar navbar-expand-lg bg-transparent navbar-dark py-3 fixed-top">
+  <a class="logo" href=""><img src="images/logo.PNG" alt="logo" ></a>
+  <!--<a style="color: white;" class="navbar-brand" href="#"><i class="fa fa-medkit"></i> Sankalp </a>-->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navmenu">
     <ul class="navbar-nav ml-auto pr-4">
       <li class="nav-item btn btn-danger">
         <a  class="nav-link activeNavLink" href="/">
@@ -24,7 +26,7 @@
           <a class="dropdown-item" href="/doctor/registerDoc">Doctor</a>
       </li>
 
-      <li class="nav-item dropdown  btn btn-outline-primary">
+      <li style="color:white"  class="nav-item dropdown  btn btn-outline-primary">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-sign-in"></i>
             Login
@@ -38,69 +40,33 @@
     
   </div>
 </nav>
-  <!-- flash messaging -->
-<!-- 
-  this is mainly works for when any guest user try
-  to go to protected routes
- -->
-<%- include ("partials/messages") %>
-<div class="text">
-  <img src="images/doctorPatient.jpg" alt="bg photo" width="100%">
-  <div class="text-block">
-    <h1>Sankalp:The hope of new world<h1>
-  </div>
 </div>
-<!--stylesheet-->
-<style>
- .navbar-nav .nav-item .nav-link{
-    font-size: 15px;
-    font-weight: 200;
-    color:#007bff;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    height: 50px;
-}
+<section class="sankalp">
+  <section class="left-sec p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
+   <h2> <i class="fa fa-heartbeat"></i> Passion for Healing <i class="fa fa-heartbeat"></i></h2>
+   <h1>  We Provide Best online medical care</h1>
+   <p>We are here for your care 24/7</p>
+  </section>
 
-.navbar-nav .nav-item .nav-link:hover{
-    color:white;
-}
-.h3{
-    text-align: center;
-}
-
-.nav-item{
-    margin-left:5px;
-    
-}
-
-.navbar-nav .nav-item .activeNavLink{
-    
-    color:white;
-}
-
-.navbar-nav li{
-    border-radius: 2%;
-}
-  .text {
-    position: relative;
+  
+  <section class="right-sec">
+   <figure>
+    <img class="img-fluid d-none d-sm-block" src="">
+   </figure>
+  </section>
+</section>
+</section>
+<%- include ('partials/footer') %>
+<script>
+  if('geolocation' in navigator){
+    console.log('geolocation available');
+    navigator.geolocation.getCurrentPosition(position=>{
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+    });
   }
-  .h1 {
-      
-    font-family: "Times New Roman", Times, serif;
-    font-size: medium;
+  else{
+    console.log('geolocation not available');
   }
-  /* Bottom right text */
-  .text-block {
-    position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-    background-color:hsl(34, 56%, 82%);
-    color:chocolate;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-</style>
-
-
-
-
+  //access token: pk.eyJ1IjoiYXl1c2hpMDEiLCJhIjoiY2t4N3J0YzQxMWFxaTJwbzVsandqbzRqeCJ9.0ifHQpUMuA2CbUsyPieb1g
+</script>
