@@ -11,7 +11,7 @@ $(function(){
 
             // ajax code starts here
             $.ajax({
-                url:'user/searchAutocomplete',
+                url:'doctor/searchAutocomplete',
                 dataType:'jsonp',
                 type:'GET',
                 data:req,
@@ -35,7 +35,7 @@ $(function(){
 
 
 // function triggered when search button clicked
-function searchByDoctorName(){
+function searchByPatientName(){
 
     //extract input company name
     let nameInput=document.getElementById('searchName').value;
@@ -43,9 +43,8 @@ function searchByDoctorName(){
     // make an xhr to get company profile page
     var xhr=new window.XMLHttpRequest();
     
-    xhr.open('GET','/user/searchDoctor/'+nameInput,true);
+    xhr.open('GET','/doctor/searchPatient/'+nameInput,true);
     xhr.setRequestHeader('Content-Type','application/json;charset=UTF-8');
     xhr.send();
 
 }
-

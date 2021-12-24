@@ -297,6 +297,7 @@ User.find({},(err,patient)=>{
       profileField.id = req.user._id;
       profileField.phone = req.user.phone;
       profileField.specialisation = req.user.specialisation;
+      profileField.fees = req.user.fees;
       profileField.randomId=random;
       patient.accepted.unshift(profileField);
       User.updateOne({email:patientId},patient,(err)=>{//{$set:{appointments:profileField}}
@@ -538,35 +539,71 @@ res.setHeader('Content-type', 'image/png');
  res.download(filePath);
 // res.pipe(file);
 });
-// chat functionality
-router.get('/doctorsChat',(req,res)=>{
 
-  //send all messages to chat page
-  Message.find({},(err,messages)=>{
-      res.render('chat/sankalpsChat',{
+//search autocomplete feature on companies page
+router.get('/searchAutocomplete',(req,res,next)=>{
+
+  // 'i' is regExp method
+  let regex=new RegExp(req.query['term'],'i');
+
+  //filter companies according to typed characters on search bar
+  let patientFilter=User.find({name:regex},{'name':1}).sort({'updated_at':-1}).sort({'created_at':-1}).limit(20);
+
+
+  patientFilter.exec((err,data)=>{
+      console.log(data);
+      let result=[];
+      if(!err){
+          if(data && data.length && data.length>0){
+              data.forEach(patient=>{
+                  let obj={
+                      id:patient._id,
+                      label:patient.name
+                  };
+                  result.push(obj);
+              });
+          }
+
+          res.jsonp(result);
+      }
+  })
+})
+
+
+
+
+
+//after clicking search button
+router.post('/searchPatient',(req,res)=>{
+ 
+  let patientName=req.body.patientName;
+  console.log(patientName);
+  User.findOne({name:patientName},(err,patient)=>{
+      if(patient){
+        //console.log(doctor);
+        var pat=[];
+        pat.push(patient);
+          console.log('mil gyi');
+          res.render('Doctor/pastDoc',{
+            user:req.user,
+            pats:pat
+           })
+      }
+      else{
+        User.find({},(err,pat)=>{
+        //  console.log(doc);
+          res.render('Doctor/pastDoc',{
           user:req.user,
-          messages:messages
+          pats:pat,
+         })
       })
+      }
+      
   })
   
 })
 
-// used to save message to database
-router.post('/addMsgToChat',(req,res)=>{
 
-      const newMsg=new Message({
-          senderName:req.body.senderName,
-          sendingTime:req.body.sendingTime,
-          senderMsg:req.body.senderMsg
-      })
-
-      newMsg.save()
-      .then(msg=>{
-          console.log(msg);
-          
-      })
-      .catch(err=>console.log(err));
-})
   // Logout
   router.get('/logoutDoc', (req, res) => {
     req.logout();

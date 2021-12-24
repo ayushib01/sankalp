@@ -123,3 +123,35 @@ font-family: 'Bangers', cursive;
    height: 320px;
    padding-top: 15%;
 }
+@media (max-width:768px){
+    .centered{
+        margin:0 auto;
+        width:50%;
+    }
+}
+@media (max-width:768px){
+    .form-group{
+        width:90%;
+    }
+    
+    #SubmitButton{
+        width:90%;
+    }
+    .footer-bar{
+        width:100vw;
+    }
+}
+@media (max-width:768px){
+    .profileForm{
+        width:95%;
+    }
+}
+@media (max-width:768px){
+    .btn-info
+    .appointButton
+    .preferenceButton
+    #updateButton
+    {
+        width:90%;
+    }
+}

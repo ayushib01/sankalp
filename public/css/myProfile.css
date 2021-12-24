@@ -24,4 +24,9 @@
     color:chocolate;
     display: flex;
     font-family: 'Times New Roman', Times, serif;
-}     
+} 
+@media (max-width:768px){
+  .postbox4{
+      width:95%;
+  }
+}    

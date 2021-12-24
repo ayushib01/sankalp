@@ -28,10 +28,14 @@
               <button class="btn-info"> Specialisation </button>
               <h5  class="ml-3"> <%= ele.specialisation %></h5>
               </div>
-            
+              <div class="container patphone mb-2" id="weight">
+                <button class="btn-info"> Fees </button>
+                <h5  class="ml-3">Rs. <%= ele.fees %></h5>
+                </div>
+             <br>
                 <form action="/user/uploads/<%= ele.email %>" enctype="multipart/form-data" method="POST" >
                     <div class="container patphone mb-2" id="file">
-                        <button class="btn-info"> Upload File: </button>
+                        <button class="btn-info"> Upload File </button>
                     
                         <input type="file" name="myImage" accept="image/*" value="" required>
                  
@@ -40,7 +44,7 @@
                         <button type="submit" class="btn btn-primary ">Upload</button>
                       </div>
                 </form> 
-            
+         <br>   
   <div class="container check">
     <a class="btn btn-success" href="/video/<%= ele.randomId%>" >Video Call</a><!--Add video call link in place of #-->
     <a class="btn btn-success" href="/chat/<%= ele.randomId%>" >Chat</a><!--Add chatlink in place of #-->

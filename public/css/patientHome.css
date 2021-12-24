@@ -45,7 +45,7 @@ color:#d5ffd5;
 display: flex;
 }
 .warningmsg{
-background-color:burlywood;
+background-color:rgb(212, 87, 87);
 }
 .dateToday{
 color: white;
@@ -60,10 +60,17 @@ width: auto;
 margin: auto;
 }
 .btn-info{
-width: 10rem;
+width: 8rem;
 }
 
 .preferenceHere{
     background-color: rgb(141, 86, 19);
 }
-    
+@media (max-width:768px){
+    .postbox4{
+        width:95%;
+    }
+}   
+.ui-autocomplete {
+    z-index: 100;
+    }

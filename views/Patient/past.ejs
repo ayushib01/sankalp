@@ -17,16 +17,17 @@
 </div>
 
     <br><br>
-    <% if(user.historyDetails.length==0){%> 
+    <% if(user.historyDetails.length==0 ){%> 
         <div class="container justify-content-center postbox2" style="height: 400px;right: 50px;">
           <h5 style="color: black;"> No Appointments Yet. </h5>
         </div>
         <% } else {  
-        
+          var flag=0;
             user.historyDetails.forEach(function(ele) { %>
-      
-          <div class="container justify-content-center postbox">
+             
           <% docs.forEach(function(item){if(item.email===ele.email_doctor){%>
+            <% flag=1;%>
+            <div class="container justify-content-center postbox">
                   <div class="container patientName"><i class="fa fa-user-md"></i> Doctor <%= item.name %> </div>
                   <div class="container patage mb-2" id="age">
                      <button class="btn-info">Email </button>
@@ -51,10 +52,16 @@
                          </div>
                           <button class="downloadButton btn btn-success " id='downloadButton/<%=ele.name%>' onclick='downloadFunction("<%=ele.name%>")' >Download</button> 
                         </div> 
+                      </div> 
             <%  }})%> 
-          </div>
+            <% }) %>
+         <% if(flag==0){%>
+            <div class="container justify-content-center postbox2" style="height: 400px;right: 50px;">
+              <h5 style="color: black;"> No One Found </h5>
+            </div>
+          <%}%>
              
-       <% }) %>
+      
        <% } %>   
       </section>
       <script src="/js/download_patient.js"></script> 

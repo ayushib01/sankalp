@@ -61,12 +61,11 @@ user.acceptedApp.forEach(function(ele) { %>
                </div>
                 <button class="downloadButton btn btn-success " id='downloadButton/<%=ele.filename%>' onclick='downloadFunction("<%=ele.filename%>")' >Download</button> 
               </div> 
+              <br>
            <!-- Send Msg to patient -->
            <div class="form-group  d-flex justify-content-center">
-            <form>
                 <label for="MSG"  id="docmsg"></label>
-    <input type="text" id="sendMsg" name="sendMsg"  placeholder="Enter Msg to be send.." value="<%= typeof sendMsg != 'undefined' ? sendMsg : '' %>"/>
-              </form> 
+    <input type="text" id="sendMsg" name="sendMsg"  placeholder="Enter Msg to be send.." value="<%= typeof sendMsg != 'undefined' ? sendMsg : '' %>"/>            
 <button class="msgButton btn btn-success" id='msgButton/<%=ele.id%>' onclick='msgFunction("<%= ele.id%>")' >Send</button>
           </div>
 <div class="container check">
@@ -75,7 +74,7 @@ user.acceptedApp.forEach(function(ele) { %>
   <a class="btn btn-success" href="/video/<%= ele.randomId%>" >Video Call</a><!--Add video call link in place of #-->
   <a class="btn btn-success" href="/chat/<%= ele.randomId%>" >Chat</a><!--Add chatlink in place of #-->
         <br><br>
-        <a class="btn btn-success" href="/doctor/history/<%= ele.email%>" >Completed Appointment</a>
+        <a class="btn btn-success btn-block" href="/doctor/history/<%= ele.email%>" >Completed Appointment</a>
         <br>
       </div>  
     </div>

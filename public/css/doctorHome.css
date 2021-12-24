@@ -81,3 +81,9 @@
         background-size: cover;
         background-repeat: no-repeat;
       }
+      @media (max-width:768px){
+        .postbox3
+        .postbox2{
+            width:95%;
+        }
+    }

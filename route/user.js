@@ -487,16 +487,42 @@ res.setHeader('Content-type', 'image/png');
  res.download(filePath);
 // res.pipe(file);
 });
+router.get('/Autocomplete',(req,res,next)=>{
+
+  // 'i' is regExp method
+  let regex=new RegExp(req.query['term'],'i');
+
+  //filter  according to typed characters on search bar
+  let doctorFilter=Doctor.find({specialisation:regex},{'specialisation':1}).sort({'updated_at':-1}).sort({'created_at':-1}).limit(20);
+
+
+  doctorFilter.exec((err,data)=>{
+      console.log(data);
+      let result=[];
+      if(!err){
+          if(data && data.length && data.length>0){
+              data.forEach(doctor=>{
+                  let obj={
+                      id:doctor._id,
+                      label:doctor.specialisation
+                  };
+                  result.push(obj);
+              });
+          }
+
+          res.jsonp(result);
+      }
+  })
+})
 
 
 
-//search autocomplete feature on companies page
 router.get('/searchAutocomplete',(req,res,next)=>{
 
   // 'i' is regExp method
   let regex=new RegExp(req.query['term'],'i');
 
-  //filter companies according to typed characters on search bar
+  //filter  according to typed characters on search bar
   let doctorFilter=Doctor.find({name:regex},{'name':1}).sort({'updated_at':-1}).sort({'created_at':-1}).limit(20);
 
 

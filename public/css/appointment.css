@@ -1,5 +1,4 @@
-
-   .postbox{
+.postbox{
     background-color:black;
     /*background-image: url('../images/doctor.gif');*/
     /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
@@ -43,3 +42,8 @@
     border-width: 3px;
     border-style:solid;
   }
+  @media (max-width:768px){
+    .postbox{
+        width:95%;
+    }
+}

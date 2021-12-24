@@ -36,7 +36,7 @@
       <% if(doc.fees!==''){ %>
       <div class="container fee mb-2">
         <button class="btn-info">Fees </button>
-        <h5 class="ml-3"> <%= doc.fees %></h5>
+        <h5 class="ml-3">Rs. <%= doc.fees %></h5>
       </div><% } %>
       <% if(doc.availableDays!==''){ %>
       <div class="container days mb-2">
@@ -89,7 +89,7 @@
           }
         })
         if(typeof user.location==='undefined' || vlag!==-2){ %>
-         <p class="warningmsg"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> To book appointment Update Details and Fill the preference</p> 
+         <p class="warningmsg"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> To book appointment Update Profile Details and Select the preference</p> 
         <button class="trial btn btn-success">Book Appointment</button>
         <% } else if(flag===-1){ %> 
 
