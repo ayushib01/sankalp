@@ -353,8 +353,45 @@ User.find({},(err,patient)=>{
       }
   })
    })
-  })
+   const output = `
+    <p>Hey ${patient.name}!</p>
+    <h3>Dr. ${req.user.name} has fixed an appointment!</h3>
+    <h3>Visit Sankalp website for appointment details</h3>
+    `;
+  //create reusable transporter object using the default SMTP transport
+  const transporter = nodemailer.createTransport({
+    host:'smtp.gmail.com',
+    port:587,
+    secure:false,
+    auth: {
+      user: 'sankalp2021webster@gmail.com',
+      pass: 'sankalp@1234' 
+    }
   });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+
+      from: '"Nodemailer Contact"', // sender address
+      to: patient.email, // list of receivers
+      subject: 'Welcome to Sankalp', // Subject line
+     text: 'Appointment Details Alert',
+      html:output 
+      
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Message sent: %s', info.messageId);   
+      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    
+  });
+})
+
+  })
  
   //Appointment cancelled by doctor
   router.get('/cancelled/:email',(req,res)=>{

@@ -1,0 +1,46 @@
+<div class="modal fade" id="previousModal" tabindex="-1" role="dialog" aria-labelledby="previousModalTitle" aria-hidden="true">
+    <div  class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="previousModalTitle" style="color: black;"><i class="fa fa-clock-o"></i> Previous Chat</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div style="background-color: #667aff;-webkit-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+        -moz-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+        box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);" class="modal-body">
+          <!-- When there is no notification -->
+          <% if(messages.length==0){%> 
+            <ul class="list-group list-group-flush">
+              <li  style="background-color: #7386ff; color:white" class="list-group-item">
+                No previous record. 
+              </li>      
+            </ul> 
+          <% } else { 
+            messages.forEach(function(msg){ %>
+                <ul class="list-group list-group-flush">
+                    <div style="border:2px; border-color: #667aff;">
+                      <li style="background-color: #7386ff; color:white" class="list-group-item">
+                         <p class="meta" style="color: black; font-weight:bolder;"><i class="fa fa-circle-o"></i> <%= msg.senderName %>
+                        (at <span style="color: rgb(44, 39, 39);"><%= msg.sendingTime %></span>)</p>
+                    <p class="text" style="border: black;"><i class="fa  fa-arrow-right" aria-hidden="true"></i> <%= msg.senderMsg %></p>
+                    </li> 
+                    </div>
+                         
+                </ul>
+           <% }) %>
+          <% } %>
+
+        </div>
+        
+      </div>
+    </div>
+</div>
+<!--
+   <button  type="button" class="previousButton btn btn-dark" data-toggle="modal"  data-target="#previousModal">
+        <i class="fa fa-clock-o"></i> Visit Previous Chat
+      </button>
+
+      <%- include ( "partials/previousChat" ) %>
+-->

@@ -1,0 +1,96 @@
+<script>
+    const ROOM_ID = "<%= roomId %>"
+    const senderName="<%=user.name%>"
+ </script>
+ <section class="chat-section">
+ <div class="chat-container">
+  <header class="chat-header" >
+    <h1><i class="fa fa-comments-o" aria-hidden="true"></i> Chat room</h1>
+    <a id="leave-btn" class="btn" onclick="goBack();">Leave Room</a>
+  </header>
+  <main class="chat-main" >
+    <div class="chat-sidebar" >
+      <h5 class="chatroom-quote">"Physicians and patients need to work together to pursue care that improves health, avoids harms and eliminates wasteful practices"</h5>
+      <h3><i class="fa fa-comments"></i> Room Name:</h3>
+      <p id="room-name" style="font-size: x-small ;"></p>
+      <h3><i class="fa fa-user"></i> Users</h3>
+      <ul id="users"></ul>
+    </div>
+    <div class="chat-messages" >
+                  <!-- here comes all the messages -->
+                  <h5><i class="fa fa-clock-o"></i>Previous Messages</h5>
+                  <% messages.forEach(function(msg){ %>
+                    <div class="previous">
+                        <p class="meta"><%= msg.senderName %> <br>
+                        <span><%= msg.sendingTime %></span></p>
+                        <p class="text"><%= msg.senderMsg %></p>
+                    </div>
+                <% }) %>
+                <hr>
+                <h5><i class="fa fa-clock-o"></i>Today's Messages</h5>
+    </div>
+  </main>
+  <div class="chat-form-container">
+    <form id="chat-form">
+      <input
+        id="msg"
+        type="text"
+        placeholder="Enter Message"
+        required
+        autocomplete="off"
+        style="width: 150vh;"
+      />
+      <button class="btn btn-dark"><i class="fa fa-paper-plane"></i> Send</button>
+    </form>
+  </div>
+</div>
+</section>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+ 
+  <script src="js/chats.js"></script>
+
+<script>
+    window.goBack = function (e){
+      var defaultLocation = "http://www.localhost:3000.com";
+      var oldHash = window.location.hash;
+  
+      history.back(); // Try to go back
+  
+      var newHash = window.location.hash;
+  
+      /* If the previous page hasn't been loaded in a given time (in this case
+      * 1000ms) the user is redirected to the default location given above.
+      * This enables you to redirect the user to another page.
+      *
+      * However, you should check whether there was a referrer to the current
+      * site. This is a good indicator for a previous entry in the history
+      * session.
+      *
+      * Also you should check whether the old location differs only in the hash,
+      * e.g. /index.html#top --> /index.html# shouldn't redirect to the default
+      * location.
+      */
+  
+      if(
+          newHash === oldHash &&
+          (typeof(document.referrer) !== "string" || document.referrer  === "")
+      ){
+          window.setTimeout(function(){
+              // redirect to default location
+              window.location.href = defaultLocation;
+          },1000); // set timeout in ms
+      }
+      if(e){
+          if(e.preventDefault)
+              e.preventDefault();
+          if(e.preventPropagation)
+              e.preventPropagation();
+      }
+      return false; // stop event propagation and browser default event
+  }
+  </script>

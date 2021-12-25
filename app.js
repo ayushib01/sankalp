@@ -58,6 +58,7 @@ app.use('/user',require('./route/user'));
 app.use('/doctor',require('./route/doctor'));
 //------Video Call-----------------------
 const io = require("socket.io")(server);
+
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
   debug: true,
@@ -79,51 +80,112 @@ io.on('connection', (socket) => {
 		})
 	})
 })
+//-------Realtime chat---------------------------
+const formatMessage = require('./utils/messages');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./utils/users');
+app.get('/room/:roomid', (req, res)=>{
+  var messages=[];
+  console.log(req.params.roomid);
+ Chat.find({meetId:req.params.roomid}, function(err, chats) {
+    if (chats.length) {
+      chats.forEach((item)=>{
+      console.log(item);
+      messages=item.meetDetails;
+
+    })
+      }
+    else {
+      const newChat= new Chat({
+        meetId:req.params.roomid,
+      })
+       newChat.save()
+       .then(msg=>{
+           console.log(msg);
+           
+       })
+       .catch(err=>console.log(err));
+    }
+    res.render('room',{ roomId: req.params.roomid ,user:req.user,messages:messages});
+ })
+})
+// used to save message to database
+app.post('/addMsgToChat/:room',(req,res)=>{
+  Chat.findOne({meetId:req.params.room},(err,chat)=>{
+    const meet={};
+    meet.senderName=req.body.senderName;
+    meet.sendingTime=req.body.sendingTime;
+    meet.senderMsg=req.body.senderMsg;
+    chat.meetDetails.push(meet);
+    Chat.updateOne({meetId:req.params.room},chat,(err)=>{
+      if(err){
+          console.log(err);
+          return;
+      }
+      else{
+        console.log("update ho gya meet details");
+        return res.status(200).end();
+    }
+   })
+   //res.redirect('/chat/'+req.params.room);
+  })
+  })
+const botName = 'Sankalp Chat Bot';
+
+// Run when client connects
+io.on('connection', socket => {
+  socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+
+    socket.join(user.room);
+
+    // Welcome current user
+    socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+
+    // Broadcast when a user connects
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'message',
+        formatMessage(botName, `${user.username} has joined the chat`)
+      );
+
+    // Send users and room info
+    io.to(user.room).emit('roomUsers', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    });
+  });
+
+  // Listen for chatMessage
+  socket.on('chatMessage', msg => {
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
+  });
+
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
+
+    if (user) {
+      io.to(user.room).emit(
+        'message',
+        formatMessage(botName, `${user.username} has left the chat`)
+      );
+
+      // Send users and room info
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
+    }
+  });
+});
 server.listen(port,()=>{
     console.log(`Server connected to port :${port}`);
 });
-
-/*Chat section normal-----------not realtime--------
-app.get('/chat/:email1/:email2',(req,res)=>{
-  var email_doc=req.params.email2;
-  var email_pat=req.params.email1;
-  Chat.deleteOne({email_doc:email_doc},{email_pat:email_pat}, function (err) {
-    if(err) console.log(err);
-    console.log("Successful deletion");
-  });
-  var chatMessage = new Chat({
-    email_doc:email_doc,
-    email_pat:email_pat,
-});
-chatMessage.save(function (err) {
-  if (err) {
-   console.log(err);
-  } else {
-     console.log('successfully saved to chats');
-  }});
-var mails={};
-mails.email_doc=email_doc;
-mails.email_pat=email_pat;
-Chat.findOne({email_doc:email_doc},{email_pat:email_pat},(err,element)=>{
-  console.log(element);
-  res.render('chat/mainChat',{
-      user:req.user,
-      mails:mails,
-     // items:element.items
-  })
-})
-})
-// used to save message to database
-app.post('/addMsgToChat/:email1/:email2',(req,res)=>{
-  var email_doc=req.params.email2;
-  var email_pat=req.params.email1;
- Chat.findOne({email_doc:email_doc},{email_pat:email_pat},(err,text)=>{
-   var item={};
-  item.senderName=req.body.senderName;
-  item.sendingTime=req.body.sendingTime;
-  item.senderMsg=req.body.senderMsg;
-  text.items.push(item);
-  text.markModified('items');
-  text.save(); // works
-})
-})*/

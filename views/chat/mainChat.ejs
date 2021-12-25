@@ -1,0 +1,30 @@
+<script>
+    app.get('/chat/:room',(req,res)=>{
+  var messages=[];
+  console.log(req.params.room);
+ Chat.find({meetId:req.params.room}, function(err, chats) {
+    if (chats.length) {
+      chats.forEach((item)=>{
+      console.log(item);
+      messages=item.meetDetails;
+
+    })
+      }
+    else {
+      const newChat= new Chat({
+        meetId:req.params.room,
+      })
+       newChat.save()
+       .then(msg=>{
+           console.log(msg);
+           
+       })
+       .catch(err=>console.log(err));
+    }
+    res.render('chat/mainChat',{ roomId: req.params.room ,user:req.user,messages:messages});
+ })
+  console.log(messages);
+
+})
+
+</script>

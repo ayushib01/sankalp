@@ -41,7 +41,8 @@ function appendNewMsg(devname){
     // To add message to chat-messages
     let div=document.createElement('div');
     div.classList.add('message');
-    div.innerHTML=`<p class="meta">${devname}  <br><span>${timeString}</span></p>
+    div.style="background-color: rgb(202, 224, 202);"
+    div.innerHTML=`<p class="meta" style="color: rgb(12, 73, 12);">${devname}  <br><span>${timeString}</span></p>
     <p class="text"> 
         ${msgText}   
     </p>`;

@@ -1,15 +1,14 @@
 const mongoose=require('mongoose');
 
 const chatSchema=new mongoose.Schema({
-    email_doc:{
-        type:String,
-    },
-    email_pat:{
-        type:String,  
-    },
-   items: {
-    type:mongoose.Schema.Types.Array,
-   }//sender Name,sender time,sendermsg
+    meetId: {
+        type: String,
+       // required: true
+      },
+      meetDetails: {
+        type:mongoose.Schema.Types.Array,
+      },
+
 })
 
 //create the model of the above messageSchema

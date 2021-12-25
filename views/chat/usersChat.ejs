@@ -3,23 +3,23 @@
 <br><br><br><br>
 <!-- chat box with side bar -->
 <div class="chat-container">
-    <section class="chat-header">
+    <section class="chat-header" style="background-color: rgb(76, 155, 76);">
       <h1><i class="fa fa-smile"></i>Sankalp's Discussion Room</h1>
       
     </section>
     <main class="chat-main">
-      <div class="chat-sidebar">
+      <div class="chat-sidebar" style="background-color: rgb(107, 179, 107);">
         <h2>Why this chatroom?</h2>
         <div class="">This chatroom allows the users to interact among themselves and get the information related to appropriate doctor's appointment</div>
         <br>
         <h5 class="chatroom-quote">"Physicians and patients need to work together to pursue care that improves health, avoids harms and eliminates wasteful practices"</h5>
       </div>
-      <div id="message-collection" class="chat-messages">
+      <div id="message-collection" class="chat-messages" >
 
                 <!-- here comes all the messages -->
                 <% messages.forEach(function(msg){ %>
-                    <div class="message">
-                        <p class="meta"><%= msg.senderName %> <br>
+                    <div class="message" style="background-color: rgb(202, 224, 202);">
+                        <p class="meta" style="color: rgb(12, 73, 12);"><%= msg.senderName %> <br>
                         <span><%= msg.sendingTime %></span></p>
                         <p class="text"><%= msg.senderMsg %></p>
                     </div>
@@ -27,7 +27,7 @@
                     
       </div>
     </main>
-    <div class="chat-form-container">
+    <div class="chat-form-container" style="background-color: rgb(76, 155, 76);">
         <div class="chat-form">
 
           <!-- input field to write message -->
