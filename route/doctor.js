@@ -612,7 +612,7 @@ router.get('/searchAutocomplete',(req,res,next)=>{
 
 router.post('/homeDoc/:id',(req,res)=>{
   var answer=req.body.doubt;
-  answer=answer.concat(" ",`by Doctor:${req.user.name}`)
+  answer=answer.concat(" ",`by Dr.${req.user.name}`)
   var doubtId=req.params.id;
   Ask.findOne({doubtId:doubtId},(err,ask)=>{
     ask.answer.push(answer);

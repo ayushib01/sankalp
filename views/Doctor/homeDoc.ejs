@@ -1,8 +1,11 @@
 <section class="doctor">
 <%- include ('../partials/navigationDoc') %>
 <%- include ('../partials/messages') %>
-
-
+<button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#doubtsModal"style = "position:relative;right:-180vh;background-color:rgba(0,0,0,.5); top:-25px">
+  <p class="nav-link" style="color: white;font-weight: large;"> <i class="fa fa-lightbulb-o"> Answer the doubts </i> </p>
+</button>
+<!-- modal for notification section -->
+<%- include( "../partials/doubts" ) %>
   <% if(user.appointments.length==0){%> 
     <div class="container justify-content-center postbox2" style="height: 400px;">
       <h5 style="color: whitesmoke"> No Appointments Yet. </h5>

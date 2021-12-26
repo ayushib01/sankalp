@@ -22,13 +22,12 @@
                 <% answers.forEach(function(item){ %>
                     <ul class="list-group list-group-flush">
                         <div style="border:2px; border-color: #79a866;">
-                          <li style="background-color: #9bb399; color:white" class="list-group-item"><p style="color: rgb(5, 7, 0);">Doubt:</p> <%= item.doubt %> <p style="font-size: xx-small;">[Date:<%=item.date%>]</p> </li>
+                          <li style="background-color: #9bb399; color:white" class="list-group-item">Doubt: <%= item.doubt %> <p style="font-size: xx-small;">[Date:<%=item.date%>]</p> </li>
                           <%  item.answer.forEach(function(ans){
                             if(ans!=""){ %>
-                            <li style="background-color: #9bb399; color:white" class="list-group-item"><p style="color: black;"> Answer:</p> <%= ans %></li> 
+                              <li style="background-color: #9bb399; color:rgb(17, 16, 16)" class="list-group-item"> Answer: <%= ans %></li>
                             <%}%>
                           <%})%>
-
                         </div>      
                     </ul>
                     <% }) %>
