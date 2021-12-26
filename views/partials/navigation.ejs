@@ -15,12 +15,12 @@
     </li>
     <li class="nav-item btn btn-outline-primary" id="docMessgae">
       <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#docMessageModal">
-      <i class="fa fa-envelope"> <p class="nav-link"> Doctors' Message</p></i>
+      <i class="fa fa-envelope"> <p class="nav-link"></p></i>
     </button>
   </li>
     <li class="nav-item btn btn-outline-primary" id="notify">
         <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#notificationModal">
-            <i class="fa fa-bell"> <p class="nav-link">Notifications </p></i>
+            <i class="fa fa-bell"> <p class="nav-link"> </p></i>
       </button>
     </li>
     <li class="nav-item btn btn-outline-primary">
@@ -50,7 +50,16 @@
               <a class="dropdown-item" href="/user/logout">Logout</a>
               <a class="dropdown-item" href="/user/delete" >Delete Account</a>
         </li>
-               
+        <li class="nav-item btn btn-outline-primary" id="doubt">
+          <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#askModal">
+            <i class="fa fa-question-circle" aria-hidden="true"><p class="nav-link" style="font-size: large;"></p></i>
+        </button>
+      </li>   
+      <li class="nav-item btn btn-outline-primary" id="answer">
+        <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#answerModal">
+          <i class="fa fa-lightbulb-o" aria-hidden="true"> <p class="nav-link"></p></i>
+      </button>
+    </li>  
       </ul>   
     </div>
 </nav>
@@ -58,6 +67,10 @@
 <%- include( "../partials/docMessage" ) %>
 <!-- modal for notification section -->
 <%- include( "../partials/notifications" ) %>
+<!-- modal for ask Doubt section -->
+<%- include( "../partials/askDoubt" ) %>
+<!-- modal for answers section -->
+<%- include( "../partials/answers" ) %>
 <style>
    
 .mainheader{

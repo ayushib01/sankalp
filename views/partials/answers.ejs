@@ -1,0 +1,43 @@
+<div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="answerModalTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="answerModalTitle">Answers to your doubts</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div style="background-color: #747a3f;-webkit-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+            -moz-box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);
+            box-shadow: -2px 4px 24px -2px rgba(10,10,10,1);"  class="modal-body">
+              <%
+              var Ask=[];
+              Ask=ask;
+              Ask.reverse();
+              %>
+               <% Ask.forEach(function(doubt){ %>
+                <%var answers=[];
+                answers.push(doubt); %>
+                <% answers.forEach(function(item){ %>
+                    <ul class="list-group list-group-flush">
+                        <div style="border:2px; border-color: #79a866;">
+                          <li style="background-color: #9bb399; color:white" class="list-group-item"><p style="color: rgb(5, 7, 0);">Doubt:</p> <%= item.doubt %> <p style="font-size: xx-small;">[Date:<%=item.date%>]</p> </li>
+                          <%  item.answer.forEach(function(ans){
+                            if(ans!=""){ %>
+                            <li style="background-color: #9bb399; color:white" class="list-group-item"><p style="color: black;"> Answer:</p> <%= ans %></li> 
+                            <%}%>
+                          <%})%>
+
+                        </div>      
+                    </ul>
+                    <% }) %>
+               <% }) %>
+              
+    
+            </div> 
+             
+        </div> 
+      </div>
+    </div>
+  </div>

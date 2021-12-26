@@ -9,6 +9,7 @@ const axios=require('axios');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 // Load User model
 //bring auth-config file
 // =>ensureAuthenticated : Use to protect the routes 
@@ -18,6 +19,7 @@ const Doctor=require('../model/Doctor');
 const Location = require('../model/Location');
 const Message = require('../model/Message');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const Ask = require('../model/Ask');
 //Mapbox acces token to get the location coordinates
 var ACCESS_TOKEN = 'pk.eyJ1IjoiYXl1c2hpMDEiLCJhIjoiY2t4N3J0YzQxMWFxaTJwbzVsandqbzRqeCJ9.0ifHQpUMuA2CbUsyPieb1g';
 // Login Page
@@ -175,12 +177,16 @@ router.post('/login', (req, res, next) => {
 // Home
 router.get('/home', ensureAuthenticated, (req, res) =>{
  Doctor.find({},(err,docs)=>{
+   Ask.find({doubt_email:req.user.email},(err,ask)=>{ 
 //here doctors is array of objects
    res.render('Patient/home',{
      user:req.user,
      doctors:docs,
+     ask:ask
    })
+  })
  })
+ 
 });
 //Post request for the nearby doctors algo
 
@@ -264,7 +270,24 @@ router.get('/cancel',(req,res)=>res.render('Patient/cancel',{
   user:req.user,
 })
 );
+router.post('/doubt',(req,res)=>{
+  var doubt=req.body.doubt;
+  var random=uuidv4();
+  const newAsk=new Ask({
+    doubt_email:req.user.email,
+    doubtId:random,
+    doubt:doubt,
+    answer:""
+})
 
+newAsk.save()
+.then(msg=>{
+    console.log(msg);
+    
+})
+.catch(err=>console.log(err));
+res.redirect('/user/home');
+})
   //profile 
 router.post('/profile',async(req,res)=>{
     const { location, age, phone, gender,weight,height,bloodGroup,presentHealthStatus} = req.body;

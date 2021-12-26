@@ -20,6 +20,7 @@ const User = require('../model/User');
 const Location = require('../model/Location');
 const Upload = require('../model/Upload');
 const Message = require('../model/Message');
+const Ask= require('../model/Ask');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 //Mapbox acces token to get the location coordinates
 var ACCESS_TOKEN = 'pk.eyJ1IjoiYXl1c2hpMDEiLCJhIjoiY2t4N3J0YzQxMWFxaTJwbzVsandqbzRqeCJ9.0ifHQpUMuA2CbUsyPieb1g';
@@ -176,11 +177,14 @@ router.post('/loginDoc', (req, res, next) => {
 router.get('/homeDoc', ensureAuthenticated, (req, res) => {
   //console.log(req.user);
   User.find({},(err,patient)=>{
+    Ask.find({},(err,ask)=>{ 
     //here doctors is array of objects
     res.render('Doctor/homeDoc',{
       user:req.user,
       patients:patient,
+      ask:ask
     })
+  })
   })
 }); 
   //profile
@@ -606,7 +610,25 @@ router.get('/searchAutocomplete',(req,res,next)=>{
   })
 })
 
-
+router.post('/homeDoc/:id',(req,res)=>{
+  var answer=req.body.doubt;
+  answer=answer.concat(" ",`by Doctor:${req.user.name}`)
+  var doubtId=req.params.id;
+  Ask.findOne({doubtId:doubtId},(err,ask)=>{
+    ask.answer.push(answer);
+    Ask.updateOne({doubtId:doubtId},ask,(err)=>{
+      if(err){
+          console.log(err);
+          return;
+      }
+      else{
+        console.log("update ho gya ask details");
+        return res.status(200).end();
+    }
+   })
+  })
+  res.redirect('/doctor/homeDoc');
+})
 
 
 

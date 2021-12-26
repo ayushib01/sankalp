@@ -67,18 +67,20 @@ app.use("/peerjs", peerServer);
 app.get('/video/:room',(req,res)=>{
   res.render('chat/video',{ roomId: req.params.room ,user:req.user});
 })
-io.on('connection', (socket) => {
-	socket.on('join-room', (roomId, userId) => {
-		socket.join(roomId)
-		socket.to(roomId).emit('user-connected', userId)
+io.on('connection', socket => {
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId)
+    socket.to(roomId).emit('user-connected', userId);
+    // messages
+    socket.on('message', (message) => {
+      //send message to the same room
+      io.to(roomId).emit('createMessage', message)
+  }); 
 
-		socket.on('message', (message) => {
-			io.to(roomId).emit('createMessage', message, userId)
-		})
-		socket.on('disconnect', () => {
-			socket.to(roomId).emit('user-disconnected', userId)
-		})
-	})
+    socket.on('disconnect', () => {
+      socket.to(roomId).emit('user-disconnected', userId)
+    })
+  })
 })
 //-------Realtime chat---------------------------
 const formatMessage = require('./utils/messages');
@@ -131,7 +133,7 @@ app.post('/addMsgToChat/:room',(req,res)=>{
         return res.status(200).end();
     }
    })
-   //res.redirect('/chat/'+req.params.room);
+
   })
   })
 const botName = 'Sankalp Chat Bot';

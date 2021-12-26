@@ -11,12 +11,17 @@
     <!-- bring filterPosts partial -->
     <%- include ( "../partials/filterPosts" ) %>
 </div>
-<% if(doctors.length==0){%> 
+<%
+var   Doctors=[];
+Doctors= doctors;
+Doctors.reverse();
+%>
+<% if( Doctors.length==0){%> 
   <div class="container justify-content-center postbox1" style="height: 400px;left:100px;">
     <h5 style="color: whitesmoke;"> No Appointments Available. </h5>
   </div>
  <% }else {
- if(typeof doctors !== 'undefined' && doctors.length >0){ %> <% doctors.forEach(function(doc) { %>
+ if(typeof  Doctors!== 'undefined' ){ %> <%  Doctors.forEach(function(doc) { %>
        <%if(doc.specialisation!=='' && doc.qualifications !=='' && doc.availableDays!==''){%>
     <div class="container justify-content-center postbox1">
       <div class="container doctorName">

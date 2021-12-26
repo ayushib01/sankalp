@@ -15,7 +15,7 @@
       <div class="container justify-content-center postbox">
        <div class="container patientName"> <i class="fa fa-user-md"></i>
          Dr.<%= ele.name %> </div>
-       <hr>
+         <hr>
        <div class="container patage mb-2" id="age">
           <button class="btn-info">Email </button>
           <h5  class="ml-3"> <%= ele.email %></h5>
@@ -46,8 +46,8 @@
                 </form> 
          <br>   
   <div class="container check">
-    <a class="btn btn-success" href="/video/<%= ele.randomId%>" >Video Call</a><!--Add video call link in place of #-->
-    <a class="btn btn-success" href="/room/<%= ele.email%>+<%=user.email%>" >Chat</a><!--Add chatlink in place of # "/chat/<%= ele.randomId%>" -->
+    <a class="btn btn-success" href="/video/<%= ele.randomId%>" ><i class="fa fa-video-camera" aria-hidden="true"></i> Video Call</a><!--Add video call link in place of #-->
+    <a class="btn btn-success" href="/room/<%= ele.email%>+<%=user.email%>" ><i class="fa fa-comments-o" aria-hidden="true"></i> Chat</a><!--Add chatlink in place of # "/chat/<%= ele.randomId%>" -->
           <br><br>
           <a class="btn btn-success btn-block" href="/user/home" >Done</a>
           <br>
