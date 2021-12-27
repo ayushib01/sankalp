@@ -52,7 +52,6 @@ treatment.<br/>
 ### Screenshots
 ![Welcome Page](https://github.com/ayushib01/sankalp/blob/main/welcome.PNG)  
 ![Register Page](https://github.com/ayushib01/sankalp/blob/main/registerPage.PNG)  
-![Home Page](https://github.com/ayushib01/sankalp/blob/main/home.PNG)  
 
 ### Future Plans
 1. Users can log in/signup using Google, Facebook, etc
