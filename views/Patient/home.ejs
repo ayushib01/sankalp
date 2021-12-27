@@ -8,18 +8,9 @@
   </button>
 
 </div>
-    <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#askModal"  style = "position:relative; right:-145vh;background-color: rgba(0,0,0,.5);">
-      <p class="nav-link" style="color: white;"> <i class="fa fa-question-circle" aria-hidden="true"> Ask Doubt to Doctors </i></p>
-  </button>
-  <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#answerModal" style = "position:relative; right:-185vh; top:-74px;background-color: rgba(0,0,0,.5);">
-    <p class="nav-link" style=" color: white;"><i class="fa fa-lightbulb-o" aria-hidden="true"> Answers </i></p>
-</button>
     <!-- bring filterPosts partial -->
 <%- include ( "../partials/filterPosts" ) %>
-    <!-- modal for ask Doubt section -->
-<%- include( "../partials/askDoubt" ) %>
-<!-- modal for answers section -->
-<%- include( "../partials/answers" ) %>
+
 <%
 var   Doctors=[];
 Doctors= doctors;

@@ -1,8 +1,7 @@
-<!--NAVBAR-->
+<!--NAVBAR on doctor's page-->
 <div class="mainheader">
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
   <a class="logo" href=""><img src="../images/logo.PNG" alt="logo" ></a>
-  <!--<a style="color: white;" class="navbar-brand" href="#"><i class="fa fa-medkit"></i> Sankalp </a>-->
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -14,9 +13,20 @@
             <i class="fa fa-home"></i> Main Page
           </a>
         </li>
+        <li class="nav-item dropdown btn btn-outline-primary">
+        <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#doubtsModal">
+          <p class="nav-link" style="color: white;font-weight: large;"> <i class="fa fa-lightbulb-o"></i> Answer the doubts </p>
+        </button>
+        </li>
+       
+        <li class="nav-item btn btn-outline-primary" id="news">
+          <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#newsModal">
+            <p class="nav-link"><i class="fa fa-newspaper-o" aria-hidden="true"></i> News Section </p>
+        </button> 
+      </li>
         <li class="nav-item btn btn-outline-primary" id="notify">
           <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#notificationModal">
-              <i class="fa fa-bell"><p class="nav-link">Notifications </p></i>
+            <p class="nav-link"> <i class="fa fa-bell"> </i> Notifications </p>
         </button>
       </li>
       <!--
@@ -53,6 +63,9 @@
 </div>
 <!-- modal for notification section -->
 <%- include( "../partials/notifications" ) %>
+<!-- modal for notification section -->
+<%- include( "../partials/news" ) %>
+<%- include( "../partials/doubts" ) %>
 
 <style>
    

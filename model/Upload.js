@@ -1,3 +1,4 @@
+//this is schema is for uploaded files by the doctor
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;

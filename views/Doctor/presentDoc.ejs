@@ -69,10 +69,9 @@ user.acceptedApp.forEach(function(ele) { %>
 <button class="msgButton btn btn-success" id='msgButton/<%=ele.id%>' onclick='msgFunction("<%= ele.id%>")' >Send</button>
           </div>
 <div class="container check">
-  <!--<button class="chatButton btn btn-success" id='chatButton' onclick='chatFunction("<%= ele.randomId%>")' >Chat</button>
-  <button class="videoButton btn btn-success" id='videoButton' onclick='videoFunction("<%= ele.randomId%>")' >Video Call</button> -->    
+  
   <a class="btn btn-success" href="/video/<%= ele.randomId%>" ><i class="fa fa-video-camera" aria-hidden="true"></i> Video Call</a><!--Add video call link in place of #-->
-  <a class="btn btn-success" href="/room/<%=user.email%>+<%= ele.email%>" ><i class="fa fa-comments-o" aria-hidden="true"></i> Chat</a><!-- /chat/<%=user.email%>+<%= ele.email%>                 Add chatlink in place of #-->
+  <a class="btn btn-success" href="/room/<%=user.email%>+<%= ele.email%>" ><i class="fa fa-comments-o" aria-hidden="true"></i> Chat</a><!--  Add chatlink in place of #-->
         <br><br>
         <a class="btn btn-success btn-block" href="/doctor/history/<%= ele.email%>" >Completed Appointment</a>
         <br>

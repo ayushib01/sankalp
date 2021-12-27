@@ -11,6 +11,7 @@
 .postbox1{
     background-color: rgba(0,0,0,.5);
     color: #fff;
+
     /*background-image: url('../images/doctor.gif');*/
     /* background: linear-gradient(to right, #ffffffb0 44%, #fac7c79f 100%); */
     padding:3% 3%;
@@ -66,8 +67,14 @@ width: 8rem;
 .preferenceHere{
     background-color: rgb(141, 86, 19);
 }
+#map {
+    height: 100%;
+  }
+  
+  
 @media (max-width:768px){
-    .postbox4{
+    .postbox4
+    .postbox1{
         width:95%;
     }
 }   

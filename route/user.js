@@ -199,6 +199,7 @@ router.get('/home', ensureAuthenticated, (req, res) =>{
     console.log(docName);
     console.log(speciality);*/
     var Docs=[];
+Ask.find({doubt_email:req.user.email},(err,ask)=>{    
   Location.find({ email_location:req.user.email}, {status:false}, function (err, locate) {
     Location.find({status:true}, function (err, doc_locate){  
       var lat1,lon1;
@@ -240,36 +241,57 @@ router.get('/home', ensureAuthenticated, (req, res) =>{
      res.render('Patient/home',{
        user:req.user,
        doctors:Docs,
+       ask:ask
      })
    })
   })
   })
+  })
   });
  //profile
- router.get('/profile',(req,res)=>res.render('Patient/profile', {
-  user: req.user,
-})
-);
-router.get('/myProfile',(req,res)=>res.render('Patient/myProfile',{
-  user:req.user,
-})
-);
-router.get('/present',(req,res)=>res.render('Patient/present',{
-  user:req.user,
-})
-);
+ router.get('/profile',(req,res)=> {
+  Ask.find({doubt_email:req.user.email},(err,ask)=>{ 
+    res.render('Patient/profile',{
+    user: req.user,
+    ask:ask
+  })
+  })
+});
+router.get('/myProfile',(req,res)=> {
+  Ask.find({doubt_email:req.user.email},(err,ask)=>{ 
+    res.render('Patient/myProfile',{
+    user: req.user,
+    ask:ask
+  })
+  })
+});
+router.get('/present',(req,res)=> {
+  Ask.find({doubt_email:req.user.email},(err,ask)=>{ 
+    res.render('Patient/present',{
+    user: req.user,
+    ask:ask
+  })
+  })
+});
 router.get('/past',(req,res)=>{
   Doctor.find({},(err,doc)=>{
+    Ask.find({doubt_email:req.user.email},(err,ask)=>{ 
       res.render('Patient/past',{
       user:req.user,
       docs:doc,
+      ask:ask
      })
+    })
   })
 });
-router.get('/cancel',(req,res)=>res.render('Patient/cancel',{
-  user:req.user,
-})
-);
+router.get('/cancel',(req,res)=> {
+  Ask.find({doubt_email:req.user.email},(err,ask)=>{ 
+    res.render('Patient/cancel',{
+    user: req.user,
+    ask:ask
+  })
+  })
+});
 router.post('/doubt',(req,res)=>{
   var doubt=req.body.doubt;
   var random=uuidv4();
@@ -298,7 +320,7 @@ router.post('/profile',async(req,res)=>{
     }
    if(phone.length!=10)
    errors.push({ msg: 'Enter Valid phone Number' });
-//checking if location entered is valid----------------------
+//location entered is valid stored in LOCATION with latitude and longitudes----------------------
 var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+location+'.json?access_token='+ ACCESS_TOKEN + '&limit=1';
 axios.get(url)
 .then(async function(response){
@@ -409,6 +431,7 @@ Doctor.findOne({email:docEmail},(err,docs)=>{
     profileField.age = req.user.age;
     profileField.gender = req.user.gender;
     profileField.phone = req.user.phone;
+    profileField.presentHealthStatus=req.user.presentHealthStatus;
    
     var mode='',time='';
     req.user.preference.forEach((item)=>{
@@ -639,18 +662,31 @@ router.post('/searchDoctor',(req,res)=>{
   
 })
 
+router.get('/nearbyHospital',(req,res)=>{
 
+  //send all messages to chat page
+  Location.find({ email_location:req.user.email}, {status:false}, function (err, locate) {
+    console.log(locate);
+      res.render('Patient/nearbyHospital',{
+          user:req.user,
+          locate:locate
+      })
+  })
+  
+})
 // chat functionality
 router.get('/usersChat',(req,res)=>{
 
   //send all messages to chat page
   Message.find({},(err,messages)=>{
+    Ask.find({doubt_email:req.user.email},(err,ask)=>{ 
       res.render('chat/usersChat',{
           user:req.user,
-          messages:messages
+          messages:messages,
+          ask:ask
       })
   })
-  
+})
 })
 
 // used to save message to database

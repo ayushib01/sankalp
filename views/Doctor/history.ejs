@@ -22,15 +22,17 @@
       <form action="/doctor/HistoryDetails/<%= pat.email %>" enctype="multipart/form-data" method="POST" >
       <div class="container patphone mb-2" id="file">
         <button class="btn-info">Upload File</button>
-       <!-- <form action="/doctor/uploadphoto/<%= pat.email %>" enctype="multipart/form-data" method="POST">-->
+      
           <input type="file" name="myImage" accept="image/*" value="" required>
-        <!--  <input type="submit" value="Upload Photo">-->
+    
       </div>
       <div class="container patphone mb-2" id="note">    
         <button class="btn-info">Add Note</button>
+  
 <label for="Note"  id="docnote"></label>
 <input type="text" id="addNote" name="addNote"  placeholder="Enter symptom ,expected recovery etc." value="<%= typeof addNote != 'undefined' ? addNote : '' %>" size="40" height="50"> 
-      </div>
+    
+</div>
       <div class="d-flex justify-content-center" style="size: 50%;">
         <button type="submit" class="btn btn-primary ">Update Past Appointments</button>
       </div>

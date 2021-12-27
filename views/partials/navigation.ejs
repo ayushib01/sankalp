@@ -1,7 +1,7 @@
-<!--NAVBAR-->
+<!--NAVBAR On patients side-->
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
   <a class="logo" href=""><img src="../images/logo.PNG" alt="logo" ></a>
-  <!--<a style="color: white;" class="navbar-brand" href="#"><i class="fa fa-medkit"></i> Sankalp </a>-->
+
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -13,20 +13,37 @@
         <i class="fa fa-home"></i> Main Page
       </a>
     </li>
+   
+    <li class="nav-item dropdown btn btn-outline-primary">
+    <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#askModal"  >
+      <p class="nav-link" > <i class="fa fa-question-circle" aria-hidden="true"> </i></p>
+  </button>
+    </li>
+    <li class="nav-item dropdown btn btn-outline-primary">
+  <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#answerModal" >
+    <p class="nav-link" ><i class="fa fa-lightbulb-o" aria-hidden="true"></i></p>
+</button>
+    </li>
     <li class="nav-item btn btn-outline-primary" id="docMessgae">
       <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#docMessageModal">
-      <i class="fa fa-envelope"> <p class="nav-link"></p></i>
+        <p class="nav-link"> <i class="fa fa-envelope"> </i></p>
     </button>
   </li>
     <li class="nav-item btn btn-outline-primary" id="notify">
         <button type="button" class="btn nav-link centered" data-toggle="modal"  data-target="#notificationModal">
-            <i class="fa fa-bell"> <p class="nav-link"> </p></i>
+          <p class="nav-link">  <i class="fa fa-bell"> </i></p>
       </button>
     </li>
     <li class="nav-item btn btn-outline-primary">
+      <a class="nav-link" href="/user/nearbyHospital">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+          Nearby hospital
+      </a>
+  </li>
+    <li class="nav-item btn btn-outline-primary">
       <a class="nav-link" href="/user/usersChat">
           <i class="fa fa-wechat"></i>
-          Sankalp's Chat-Section
+          Chat-Section
       </a>
   </li>
     
@@ -50,6 +67,7 @@
               <a class="dropdown-item" href="/user/logout">Logout</a>
               <a class="dropdown-item" href="/user/delete" >Delete Account</a>
         </li> 
+     
       </ul>   
     </div>
 </nav>
@@ -57,7 +75,10 @@
 <%- include( "../partials/docMessage" ) %>
 <!-- modal for notification section -->
 <%- include( "../partials/notifications" ) %>
-
+    <!-- modal for ask Doubt section -->
+    <%- include( "../partials/askDoubt" ) %>
+    <!-- modal for answers section -->
+    <%- include( "../partials/answers" ) %>
 <style>
    
 .mainheader{

@@ -188,28 +188,43 @@ router.get('/homeDoc', ensureAuthenticated, (req, res) => {
   })
 }); 
   //profile
-router.get('/profileDoc',(req,res)=>res.render('Doctor/profileDoc', {
+router.get('/profileDoc',(req,res)=>{
+  Ask.find({},(err,ask)=>{ 
+  res.render('Doctor/profileDoc', {
   user: req.user,
+  ask:ask
 })
-);
+})
+});
 //my Porfile
-router.get('/myProfileDoc',(req,res)=>res.render('Doctor/myProfileDoc', {
-  user: req.user,
+router.get('/myProfileDoc',(req,res)=> {
+  Ask.find({},(err,ask)=>{ 
+    res.render('Doctor/myProfileDoc', {
+    user: req.user,
+    ask:ask
+  })
+  })
 })
-);
-router.get('/presentDoc',(req,res)=>res.render('Doctor/presentDoc',{
-  user:req.user,
-})
-);
+router.get('/presentDoc',(req,res)=>{
+  Ask.find({},(err,ask)=>{ 
+    res.render('Doctor/presentDoc', {
+    user: req.user,
+    ask:ask
+  })
+  })
+});
 router.get('/pastDoc',(req,res)=>
 User.find({},(err,patient)=>{
   Upload.find({email_doctor:req.user.email},(err,upload)=>{
+    Ask.find({},(err,ask)=>{ 
     res.render('Doctor/pastDoc',{
     upload:upload,  
     user:req.user,
     pats:patient,
+    ask:ask
 })
   })
+})
 })
 );
 //profile 
@@ -342,8 +357,7 @@ User.find({},(err,patient)=>{
     patientField.mode =mode;
     patientField.time =time;
     docs.acceptedApp.unshift(patientField);
-    //docs.appointments=docs.appointments.filter(item => item.id === patientId);
-    //if(docs.appointments.findIndex(item => item.id === patientId)!==-1)
+    
     docs.appointments.splice(docs.appointments.findIndex(item => item.id === patientId), 1);
     //console.log(patient.appointPatient);
     Doctor.updateOne({email:req.user.email},docs,(err)=>{
@@ -469,12 +483,16 @@ User.findOne({_id:patientId},(err,patient)=>{
 
 router.get('/history/:email',(req,res)=>{
   var patientEmail=req.params.email;
+
   User.findOne({email:patientEmail},(err,patient)=>{
+    Ask.find({},(err,ask)=>{ 
     //here doctors is array of objects
     res.render('Doctor/history',{
       user:req.user,
       pat:patient,
+      ask:ask
     })
+  })
   })
 }
 );
@@ -567,6 +585,53 @@ var upload = multer({ storage: storage });
    res.redirect('/doctor/homeDoc');
   })
 });
+router.post("/update/:email",upload.single('myImage'),(req,res)=>{
+  var email_patient=req.params.email;
+  var note=req.body.note;
+  //console.log(req.file);
+  let reqPath = path.join(__dirname, '../');
+  User.findOne({email:email_patient},(err,patient)=>{
+    patient.historyDetails.forEach((item)=>{
+      if(item.email_doctor===req.user.email){
+        if(req.file.filename!="" || req.file.filename!=null)
+        {item.name=req.file.filename;
+        item.pathname=path.join(reqPath +'/uploads/'+ req.file.filename);}
+      }
+    })
+    User.updateOne({email:email_patient},patient,(err)=>{//{$set:{appointments:profileField}}
+      if(err){
+          console.log(err);
+          return;
+      }
+      else{
+        console.log("update ho gya patient");
+        return res.status(200).end();
+    }
+   })
+  })
+  Doctor.findOne({email:req.user.email},(err,docs)=>{
+    docs.historyDetails.forEach((item)=>{
+      if(item.email_patient===email_patient){
+        if(req.file.filename!="")
+        {item.name=req.file.filename;
+          item.pathname=path.join(reqPath +'/uploads/'+ req.file.filename);}
+        if(note!="")
+        item.note=note;
+      }
+    })
+    Doctor.updateOne({email:req.user.email},docs,(err)=>{//{$set:{appointments:profileField}}
+      if(err){
+          console.log(err);
+          return;
+      }
+      else{
+        console.log("update ho gya doctor");
+        return res.status(200).end();
+    }
+   })
+  })
+  res.redirect('/doctor/homeDoc');
+})
 router.get('/download/:path',(req,res)=>{
 
 var reqPath = path.join(__dirname, '../');

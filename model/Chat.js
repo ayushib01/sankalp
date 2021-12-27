@@ -1,3 +1,4 @@
+//this schema is used to store the realtime chats messages
 const mongoose=require('mongoose');
 
 const chatSchema=new mongoose.Schema({
@@ -6,12 +7,12 @@ const chatSchema=new mongoose.Schema({
        // required: true
       },
       meetDetails: {
-        type:mongoose.Schema.Types.Array,
+        type:mongoose.Schema.Types.Array,//details are sender name,msg time and msg
       },
 
 })
 
-//create the model of the above messageSchema
+
 const Chat=mongoose.model('Chat',chatSchema);
 
 module.exports=Chat;

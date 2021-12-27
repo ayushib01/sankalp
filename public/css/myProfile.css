@@ -26,7 +26,8 @@
     font-family: 'Times New Roman', Times, serif;
 } 
 @media (max-width:768px){
-  .postbox4{
+  .postbox4
+  .card{
       width:95%;
   }
 }    

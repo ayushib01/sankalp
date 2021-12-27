@@ -1,5 +1,4 @@
-
-
+//this for  finding the patients in the past appointment of the doctor
 console.log('search script is runnning');
 
 

@@ -1,5 +1,4 @@
-
-
+//This autocomplete is to filter as per specialisation of the doctor
 console.log('search script is runnning');
 
 

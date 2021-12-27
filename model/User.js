@@ -42,7 +42,6 @@ const userSchema=new mongoose.Schema({
     presentHealthStatus:{
         type:String,
     },
-   // pastApp:{type:mongoose.Schema.Types.Array},
     preference:{type:mongoose.Schema.Types.Array},
     messages:[String],
     appointPatient:[String], 

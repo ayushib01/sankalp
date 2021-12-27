@@ -1,18 +1,14 @@
-* {
-	margin: 0;
-	padding: 0;
-	user-select: none;
-}
+/*This css is for the video call*/
 #video-grid{
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
  }
  video{
-	height: 300px;
-	width: 400px;
-	object-fit: cover;
-	padding: 8px;
+    height: 300px;
+    width: 400px;
+    object-fit: cover;
+    padding: 8px;
  }
 .main {
     height: 100vh;

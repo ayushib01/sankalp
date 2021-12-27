@@ -1,0 +1,83 @@
+<div id="map"></div>
+<div id="places"></div>
+<%
+var lat;
+var long;
+locate.forEach(element => {
+lat=element.latitude;
+long=element.longitude; 
+});%>
+<%console.log(lat);%>
+<script>
+    var map;
+function find(latLng) {
+  var request = {
+    types: ['hospital', 'health'],
+    location: latLng,
+    radius: 10000
+  };
+  infowindow = new google.maps.InfoWindow();
+  places = new google.maps.places.PlacesService(map);
+  places.nearbySearch(request, callback);
+}
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: {lat: 40.713485, lng:-74.005063}
+  });
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      map.setCenter(initialLocation);
+      // creates a marker of user's location
+      var marker = new google.maps.Marker({
+        position: initialLocation,
+        map: map,
+        title: 'Your Location'
+      });
+      find(marker.getPosition());
+    }, function(error) { console.log(error)
+    });
+  }
+}
+
+function callback(results, status, pagination) {
+  if (status !== 'OK') return;
+
+  createMarkers(results);
+};
+
+function createMarkers(places) {
+  var bounds = new google.maps.LatLngBounds();
+  var placesList = document.getElementById('places');
+
+  for (var i = 0, place; place = places[i]; i++) {
+    var image = {
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+
+    var marker = new google.maps.Marker({
+      map: map,
+      icon: image,
+      title: place.name,
+      position: place.geometry.location
+    });
+
+    var li = document.createElement('li');
+    li.textContent = place.name;
+    placesList.appendChild(li);
+
+    bounds.extend(place.geometry.location);
+  }
+  map.fitBounds(bounds);
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD5IiXle0mIsHh295KcfrLgbaRatiUEoyw&callback=initMap"></script>></script>
+<!--
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5IiXle0mIsHh295KcfrLgbaRatiUEoyw&libraries=places&callback="></script>
+-->

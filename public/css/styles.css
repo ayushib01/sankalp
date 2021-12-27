@@ -101,7 +101,7 @@ font-family: 'Bangers', cursive;
    
 .footer-bar
 {
-    background-color:rgb(99, 158, 192);
+    background-color:rgb(161, 195, 214);
     color:#f0f0f0;
     font-weight: 500;
     font-size: 18px;
@@ -148,6 +148,7 @@ font-family: 'Bangers', cursive;
 }
 @media (max-width:768px){
     .btn-info
+    .btn
     .appointButton
     .preferenceButton
     #updateButton

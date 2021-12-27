@@ -1,5 +1,4 @@
-
-
+//this is for the filter by doctor's name
 console.log('search script is runnning');
 
 

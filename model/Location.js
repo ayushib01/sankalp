@@ -1,3 +1,4 @@
+//this schema is used to store the longitude and latitude of users 
 const mongoose=require('mongoose');
 const locationSchema=new mongoose.Schema({
     email_location:{
