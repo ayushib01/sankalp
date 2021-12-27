@@ -50,7 +50,7 @@ treatment.<br/>
 ![Workflow](https://github.com/ayushib01/sankalp/blob/main/workflow.jpeg)  
     
 ### Screenshots
-![Welcome Page](https://github.com/ayushib01/sankalp/blob/main/workflow.jpeg)  
+![Welcome Page](https://github.com/ayushib01/sankalp/blob/main/welcome.PNG)  
 ![Register Page](https://github.com/ayushib01/sankalp/blob/main/registerPage.PNG)  
 ![Home Page](https://github.com/ayushib01/sankalp/blob/main/home.PNG)  
 
