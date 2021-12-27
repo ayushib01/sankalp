@@ -1,7 +1,7 @@
-# sankalp
+# Sankalp(Medicare)
 A web development project which provides online consultation from anywhere
   
-###Table of Contents:
+### Table of Contents:
 * [Patients Features](#Patients-Feature)<br/>
 * [Doctors Features](#Doctors-Feature)<br/>
 * [Technology Stack](#Technology-Stack)<br/>
@@ -35,24 +35,32 @@ treatment.<br/>
 7. Able to upload appointment details and view medical history of particular patient. <br/>   
 
 ### Technology Stack:   
-1. Node.js - Back End. <br/>  
-2. MongoDB (Mongoose) - Database. <br/>  
-3. Bcrypt - Hash Passwords. <br/>  
-4. Express-session - To manage sessions. <br/>  
-5. EJS - Templating. <br/>  
-6. CSS - Designing (also used Bootstrap's framework to design).<br/>  
-7. JavaScript - For interactivity (also used jQuery). <br/>  
-8. Socket.io - For real time communication. <br/>  
-9. Peer.js - Simplifies WebRTC's use. <br/>  
-10. Nodemailer - Sending Reminder Mails. <br/>   
+1. **Nodejs** - Back End. <br/>  
+2. **MongoDB** (Mongoose) - Database. <br/>  
+3. **Bcrypt** - Hash Passwords. <br/>  
+4. **Express-session** - To manage sessions. <br/>  
+5. **EJS** - Templating. <br/>  
+6. **CSS** - Designing (also used Bootstrap's framework to design).<br/>  
+7. **JavaScript** - For interactivity (also used jQuery). <br/>  
+8. **Socket.io** - For real time communication. <br/>  
+9. **Peer.js** - Simplifies WebRTC's use. <br/>  
+10. **Nodemailer** - Sending Reminder Mails. <br/>   
 
 ### WorkFlow:  
 ![Workflow](https://github.com/ayushib01/sankalp/blob/main/workflow.jpeg)  
     
 ### Screenshots
-
+![Welcome Page](https://github.com/ayushib01/sankalp/blob/main/workflow.jpeg)  
+![Register Page](https://github.com/ayushib01/sankalp/blob/main/registerPage.PNG)  
+![Home Page](https://github.com/ayushib01/sankalp/blob/main/home.PNG)  
 
 ### Future Plans
+1. Users can log in/signup using Google, Facebook, etc
+2. Show graphical representation for blood pressure, blood sugar
+levels, etc
+3. Patients can give ratings and add reviews to a clinic or a doctor
+4. Book Pathology tests
+5. Book ambulance to a nearby hospital
   
 ### For more details contact:
 1. Ayushi Barua - ayushib663@gmail.com 
